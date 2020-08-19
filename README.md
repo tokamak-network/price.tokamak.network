@@ -1,4 +1,4 @@
-# price-dashboard
+# price.tokamak.network
 
 ## Project setup
 ```

@@ -1,28 +1,48 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <HeaderContainer />
+    <div class="body-container">
+      <Dashboard />
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import Dashboard from './containers/Dashboard.vue';
+import HeaderContainer from '@/containers/HeaderContainer.vue';
 export default {
   name: 'App',
   components: {
-    HelloWorld
-  }
-}
+    Dashboard,
+    HeaderContainer,
+  },
+  data () {
+    return {
+      info: null,
+    };
+  },
+};
 </script>
 
 <style>
 #app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  justify-content: center;
+}
+.body-container {
+  min-width: 960px;
+  max-width: 960px;
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 </style>
