@@ -6,11 +6,11 @@
       <TextViewerTon :title="'Trading Volume'" :BTCValue="info.acc_trade_price_24h" :KRWValue="info.acc_trade_price_24h*krw" />
     </div>
     <div class="row">
-      <TextViewer :title="'Market Cap'" :krw="circulatingSupply*info.trade_price*krw" :ton="circulatingSupply" :subTitle="'(Circulating Supply)'" />
-      <TextViewer :title="'Market Cap'" :krw="info.trade_price*krw*50000000" :ton="50000000" :subTitle="'(Total Supply)'" />
+      <TextViewer :title="'Market Cap'" :krw="circulatingSupply*info.trade_price*krw" :ton="circulatingSupply" :subTitle="'Circulating Supply'" :tooltip="'hi'"/>
+      <TextViewer :title="'Market Cap'" :krw="info.trade_price*krw*50000000" :ton="50000000" :subTitle="'Total Supply'" :tooltip="''"/>
     </div>
     <div class="row">
-      <TextViewerBottom :title="'Initial Price'" :content="info.opening_price" :unit="'BTC'" />
+      <TextViewerBottom :title="'Opening Price'" :content="info.opening_price" :unit="'BTC'" />
       <TextViewerBottom :title="'Closing Price'" :content="info.prev_closing_price" :unit="'BTC'" />
       <TextViewerBottom :title="'High Price'" :content="info.high_price" :unit="'BTC'" />
       <TextViewerBottom :title="'Low Price'" :content="info.low_price" :unit="'BTC'" />
