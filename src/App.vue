@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import Dashboard from './containers/Dashboard.vue';
+import Dashboard from '@/containers/Dashboard.vue';
 import HeaderContainer from '@/containers/HeaderContainer.vue';
 export default {
   name: 'App',
