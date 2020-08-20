@@ -10,10 +10,10 @@
       <TextViewer :title="'Market Cap'" :krw="info.trade_price*krw*50000000" :ton="50000000" :subTitle="'Total Supply'" :tooltip="''"/>
     </div>
     <div class="row">
-      <TextViewerBottom :title="'Opening Price'" :content="info.opening_price" :unit="'BTC'" />
-      <TextViewerBottom :title="'Closing Price'" :content="info.prev_closing_price" :unit="'BTC'" />
-      <TextViewerBottom :title="'High Price'" :content="info.high_price" :unit="'BTC'" />
-      <TextViewerBottom :title="'Low Price'" :content="info.low_price" :unit="'BTC'" />
+      <TextViewerBottom :title="'Opening Price'" :btc="info.opening_price" :krw="info.opening_price*krw"/>
+      <TextViewerBottom :title="'Closing Price'" :btc="info.prev_closing_price" :krw="info.prev_closing_price*krw" />
+      <TextViewerBottom :title="'High Price'" :btc="info.high_price" :krw="info.high_price*krw"/>
+      <TextViewerBottom :title="'Low Price'" :btc="info.low_price" :krw="info.low_price*krw"/>
     </div>
   </div>
 </template>
