@@ -7,6 +7,21 @@
           Tokamak Network Price Dashboard
         </div>
       </div>
+      <div class="header-link-container">
+        <a
+          class="header-link"
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://tokamak.network"
+        >What is TON?</a>
+        <a
+          class="header-link"
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://upbit.com/exchange?code=CRIX.UPBIT.BTC-TON"
+          style="margin-left: 48px; margin-right: 36px;"
+        >Buy TON</a>
+      </div>
     </div>
   </div>
 </template>
@@ -55,5 +70,25 @@ html, body {
 
 .header-logo:hover {
   cursor: pointer;
+}
+.header-link-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-link:hover {
+  color: #141414b0;
+}
+
+.header-link {
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #7e8d93;
 }
 </style>
