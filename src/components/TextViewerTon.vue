@@ -2,7 +2,7 @@
   <div class="text-viewer-ton">
     <div class="title-ton">{{ title }}</div>
     <div class="content-ton">{{ BTCValue }} BTC</div>
-    <div class="content0ton">{{ KRWValue.toLocaleString('en-US', {minimumFractionDigits: 2}) }} KRW</div>
+    <div class="content0ton">( {{ Math.trunc(KRWValue).toLocaleString('en-US')}} KRW )</div>
   </div>
 </template>
 

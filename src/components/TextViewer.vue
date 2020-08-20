@@ -2,14 +2,15 @@
   <div class="text-viewer">
     <div class="title">{{ title }}</div>
     <div class="sub-title">{{ subTitle }}</div>
-    <div class="content">{{ content }} {{ unit }}</div>
+     <div class="content-ton">{{ ton }} TON</div>
+    <div class="content">( {{ Math.trunc(krw).toLocaleString('en-US') }} KRW )</div>
   </div>
 </template>
 
 <script>
 export default {
   name: 'TextViewer',
-  props: ['title', 'content', 'subTitle', 'unit'],
+  props: ['title', 'krw', 'subTitle', 'ton'],
 };
 </script>
 
