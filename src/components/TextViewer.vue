@@ -26,7 +26,7 @@ export default {
   display: flex;
   flex-direction: column;
   padding: 5px;
-  width: 100%;
+  width: 40%;
   height: 150px;
 }
 .title {
