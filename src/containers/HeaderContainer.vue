@@ -92,4 +92,14 @@ html, body {
   text-align: left;
   color: #7e8d93;
 }
+@media screen and (max-width: 650px) {
+  .header {
+  width: 960px;
+  height: 100%;
+  align-items: center;
+  display: flex;
+  padding-left: 5px;
+  flex-direction: column;
+}
+}
 </style>

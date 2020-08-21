@@ -38,7 +38,6 @@ export default {
 }
 .body-container {
   max-width: 960rem;
-  /* max-width: 960px; */
   display: flex;
   flex: 1;
   justify-content: center;
