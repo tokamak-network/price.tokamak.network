@@ -31,8 +31,8 @@ export default {
   flex-direction: column;
   padding: 5px;
   width: 30%;
-  height: 180px;
-  padding-bottom: 50px;
+  height: 150px;
+  padding-bottom: 20px;
 }
 .title {
     font-weight: bold;
@@ -58,7 +58,7 @@ export default {
   flex-direction: column;
   padding: 5px;
   width: 100%;
-  height: 180px;
+  height: 150px;
 }
 }
 </style>

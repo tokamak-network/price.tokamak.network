@@ -19,7 +19,7 @@ export default {
   flex-direction: column;
   padding: 5px;
   width: 100%;
-  height: 150px;
+  height: 130px;
 }
 .title {
     font-weight: bold;
