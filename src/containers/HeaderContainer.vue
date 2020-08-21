@@ -51,6 +51,7 @@ html, body {
   height: 100%;
   align-items: center;
   display: flex;
+  padding-left: 5px;
 }
 
 .header-title-container {

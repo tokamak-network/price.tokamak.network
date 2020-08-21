@@ -1,5 +1,5 @@
 <template>
-  <div class="body-container">
+  <div class="dashbboard-container">
     <div class="date">{{ currentTime }}</div>
     <div class="row">
       <TextViewerTon :title="'TON Price'" :BTCValue="info.trade_price" :KRWValue="info.trade_price*krw" />
@@ -129,9 +129,9 @@ export default {
 </script>
 
 <style scoped>
-.body-container {
-  min-width: 960px;
-  max-width: 960px;
+.dashbboard-container {
+  min-width: 75vw;
+  max-width: 75vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -146,9 +146,25 @@ export default {
   flex-direction: row;
   justify-content: center;
 }
-/* .row {
+
+@media screen and (max-width: 960px) {
+  .dashbboard-container {
+  width: 100vw;
+  display: flex;
+  flex-flow: column wrap;
+  flex-direction: column;
+  position: relative;
+}
+.date {
+  font-weight: bold;
+  font-size: 40px;
+  padding-bottom: 20px;
+}
+.row {
   display: flex;
   flex-direction: column;
   justify-content: center;
-} */
+  align-self: center;
+}
+}
 </style>

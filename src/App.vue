@@ -24,7 +24,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #app {
   display: flex;
   flex-direction: column;
@@ -37,12 +37,20 @@ export default {
   justify-content: center;
 }
 .body-container {
-  min-width: 960px;
-  max-width: 960px;
+  max-width: 960rem;
+  /* max-width: 960px; */
   display: flex;
   flex: 1;
   justify-content: center;
   margin-left: auto;
   margin-right: auto;
+}
+@media screen and (max-width: 650rem) {
+ .body-container {
+  display: flex;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+}
 }
 </style>
