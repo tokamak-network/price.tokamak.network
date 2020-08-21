@@ -132,6 +132,7 @@ export default {
 .dashbboard-container {
   min-width: 75vw;
   max-width: 75vw;
+  margin-top: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -149,7 +150,7 @@ export default {
 
 @media screen and (max-width: 960px) {
   .dashbboard-container {
-  width: 100vw;
+  margin-top: 20px;
   display: flex;
   flex-flow: column wrap;
   flex-direction: column;
