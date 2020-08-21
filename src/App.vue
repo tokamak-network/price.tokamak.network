@@ -4,7 +4,7 @@
     <div class="body-container">
       <Dashboard />
     </div>
-     <footer-container />
+    <footer-container />
   </div>
 </template>
 
@@ -18,7 +18,7 @@ export default {
   components: {
     Dashboard,
     HeaderContainer,
-    FooterContainer
+    FooterContainer,
   },
   data () {
     return {
