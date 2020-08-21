@@ -37,14 +37,14 @@ export default {
   justify-content: center;
 }
 .body-container {
-  max-width: 960rem;
+  /* max-width: 960rem; */
   display: flex;
   flex: 1;
   justify-content: center;
   margin-left: auto;
   margin-right: auto;
 }
-@media screen and (max-width: 650rem) {
+@media screen and (max-width: 670rem) {
  .body-container {
   display: flex;
   justify-content: center;

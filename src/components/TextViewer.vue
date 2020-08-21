@@ -52,7 +52,7 @@ export default {
 .tooltip {
   padding: 0px 5px;
 }
-@media screen and (max-width: 890px) {
+@media screen and (max-width: 670px) {
   .text-viewer {
   display: flex;
   flex-direction: column;

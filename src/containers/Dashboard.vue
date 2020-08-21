@@ -130,8 +130,8 @@ export default {
 
 <style scoped>
 .dashbboard-container {
-  min-width: 75vw;
-  max-width: 75vw;
+  min-width: 100vw;
+  /* max-width: 65vw; */
   margin-top: 20px;
   display: flex;
   flex-direction: column;
@@ -148,7 +148,7 @@ export default {
   justify-content: center;
 }
 
-@media screen and (max-width: 890px) {
+@media screen and (max-width: 670px) {
   .dashbboard-container {
   margin-top: 20px;
   display: flex;
