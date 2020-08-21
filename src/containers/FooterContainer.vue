@@ -194,4 +194,9 @@ margin: 0px 70px 0px 10px;
   -webkit-filter: invert(30%) grayscale(100%) brightness(70%) contrast(4);
   filter: invert(30%) grayscale(100%) brightness(70%) contrast(4);
 }
+@media screen and (max-width: 670px) {
+  .address-container{
+margin: 0px 10px 0px 10px;
+}
+}
 </style>
