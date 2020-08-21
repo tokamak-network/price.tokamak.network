@@ -2,7 +2,7 @@
   <div class="header-container">
     <div class="header">
       <div class="header-title-container">
-        <img src="@/assets/Images/Tokamak_transparent.png" height="35px" width="35px">
+        <img src="@/assets/images/Tokamak_transparent.png" height="35px" width="35px">
         <div class="header-title">
           Tokamak Network Price Dashboard
         </div>
