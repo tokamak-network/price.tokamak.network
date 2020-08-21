@@ -4,17 +4,21 @@
     <div class="body-container">
       <Dashboard />
     </div>
+     <footer-container />
   </div>
 </template>
 
 <script>
 import Dashboard from '@/containers/Dashboard.vue';
 import HeaderContainer from '@/containers/HeaderContainer.vue';
+import FooterContainer from '@/containers/FooterContainer.vue';
+
 export default {
   name: 'App',
   components: {
     Dashboard,
     HeaderContainer,
+    FooterContainer
   },
   data () {
     return {
