@@ -2,7 +2,7 @@
   <div class="text-viewer">
     <div class="title">{{ title }}</div>
     <div class="content">{{ btc }} BTC</div>
-     <div class="content">( {{ Math.trunc(krw).toLocaleString('en-US') }} KRW )</div>
+    <div class="content">( {{ Math.trunc(krw).toLocaleString('en-US') }} KRW )</div>
   </div>
 </template>
 

@@ -6,14 +6,14 @@
       <TextViewerTon :title="'Trading Volume'" :BTCValue="info.acc_trade_price_24h" :KRWValue="info.acc_trade_price_24h*krw" />
     </div>
     <div class="row">
-      <TextViewer :title="'Market Cap'" :krw="circulatingSupply*info.trade_price*krw" :ton="circulatingSupply" :subTitle="'Circulating Supply'" :tooltip="'hi'"/>
-      <TextViewer :title="'Market Cap'" :krw="info.trade_price*krw*50000000" :ton="50000000" :subTitle="'Total Supply'" :tooltip="''"/>
+      <TextViewer :title="'Market Cap'" :krw="circulatingSupply*info.trade_price*krw" :ton="circulatingSupply" :subTitle="'Circulating Supply'" :tooltip="'hi'" />
+      <TextViewer :title="'Market Cap'" :krw="info.trade_price*krw*50000000" :ton="50000000" :subTitle="'Total Supply'" :tooltip="''" />
     </div>
     <div class="row">
-      <TextViewerBottom :title="'Opening Price'" :btc="info.opening_price" :krw="info.opening_price*krw"/>
+      <TextViewerBottom :title="'Opening Price'" :btc="info.opening_price" :krw="info.opening_price*krw" />
       <TextViewerBottom :title="'Closing Price'" :btc="info.prev_closing_price" :krw="info.prev_closing_price*krw" />
-      <TextViewerBottom :title="'High Price'" :btc="info.high_price" :krw="info.high_price*krw"/>
-      <TextViewerBottom :title="'Low Price'" :btc="info.low_price" :krw="info.low_price*krw"/>
+      <TextViewerBottom :title="'High Price'" :btc="info.high_price" :krw="info.high_price*krw" />
+      <TextViewerBottom :title="'Low Price'" :btc="info.low_price" :krw="info.low_price*krw" />
     </div>
   </div>
 </template>
@@ -148,7 +148,7 @@ export default {
   justify-content: center;
 }
 
-@media screen and (max-width: 650px) {
+@media screen and (max-width: 890px) {
   .dashbboard-container {
   margin-top: 20px;
   display: flex;

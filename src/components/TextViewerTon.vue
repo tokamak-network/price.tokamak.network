@@ -2,7 +2,7 @@
   <div class="text-viewer-ton">
     <div class="title-ton">{{ title }}</div>
     <div class="content-ton">{{ BTCValue }} BTC</div>
-    <div class="content0ton">( {{ Math.trunc(KRWValue).toLocaleString('en-US')}} KRW )</div>
+    <div class="content0ton">( {{ Math.trunc(KRWValue).toLocaleString('en-US') }} KRW )</div>
   </div>
 </template>
 
@@ -18,7 +18,7 @@ export default {
   display: flex;
   flex-direction: column;
   padding: 5px;
-  width: 40%;
+  width: 30%;
   height: 150px;
 }
 .title-ton {
@@ -29,5 +29,14 @@ export default {
 .content-ton {
     font-size: 15px;
     padding: 5px;
+}
+@media screen and (max-width: 890px) {
+  .text-viewer-ton {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  width: 100%;
+  height: 150px;
+}
 }
 </style>
