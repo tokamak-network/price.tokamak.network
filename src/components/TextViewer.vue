@@ -1,14 +1,14 @@
 <template>
   <div class="text-viewer">
     <div class="title">{{ title }}</div>
-    <div class="sub-title">( {{ subTitle }}
+    <div class="sub-title">( {{ subTitle }} )
       <div v-if="tooltip !== ''" class="tooltip">
         <a href="https://medium.com/onther-tech/tokamak-network-token-economics-en-kr-97f105ef8517" target="_blank"
           rel="noopener noreferrer">
         <img src="@/assets/images/instruction.png" alt="" width="10" height="10" style="margin-top: -16px;">
         </a>
       </div>
-     )</div>
+     </div>
      <div class="content-ton">{{ ton }} TON</div>
     <div class="content">( {{ Math.trunc(krw).toLocaleString('en-US') }} KRW )</div>
   </div>
