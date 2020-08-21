@@ -7,7 +7,7 @@
         <a href="https://medium.com/onther-tech/tokamak-network-token-economics-en-kr-97f105ef8517" target="_blank"
            rel="noopener noreferrer"
         >
-          <img src="@/assets/Images/instruction.png" alt="" width="10" height="10" style="margin-top: -16px;">
+          <img src="@/assets/images/instruction.png" alt="" width="10" height="10" style="margin-top: -16px;">
         </a>
       </div>
       <div> )</div>
@@ -31,7 +31,8 @@ export default {
   flex-direction: column;
   padding: 5px;
   width: 30%;
-  height: 170px;
+  height: 180px;
+  padding-bottom: 50px;
 }
 .title {
     font-weight: bold;
@@ -57,7 +58,7 @@ export default {
   flex-direction: column;
   padding: 5px;
   width: 100%;
-  height: 170px;
+  height: 180px;
 }
 }
 </style>
