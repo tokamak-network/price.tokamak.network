@@ -30,7 +30,7 @@ export default {
     padding: 5px;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 992px) {
   .text-viewer {
   display: flex;
   flex-direction: column;
