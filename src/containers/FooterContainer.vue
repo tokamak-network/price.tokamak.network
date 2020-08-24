@@ -27,8 +27,6 @@
           <img
             class="footer-channel-image filter-grey"
             src="@/assets/images/community/medium.png"
-            width="28x;"
-            height="28px;"
           >
         </a>
         <a
@@ -39,8 +37,6 @@
           <img
             class="footer-channel-image filter-grey"
             src="@/assets/images/community/linkedin.png"
-            width="28x;"
-            height="28px;"
           >
         </a>
         <a
@@ -51,8 +47,6 @@
           <img
             class="footer-channel-image filter-grey"
             src="@/assets/images/community/twitter.png"
-            width="28x;"
-            height="28px;"
           >
         </a>
         <a
@@ -75,8 +69,6 @@
           <img
             class="footer-channel-image filter-grey"
             src="@/assets/images/community/facebook.png"
-            width="28x;"
-            height="28px;"
           >
         </a>
         <a
@@ -87,8 +79,6 @@
           <img
             class="footer-channel-image filter-grey"
             src="@/assets/images/community/github.png"
-            width="28x;"
-            height="28px;"
           >
         </a>
         <a
@@ -99,16 +89,13 @@
           <img
             class="footer-channel-image filter-grey"
             src="@/assets/images/community/discord.png"
-            width="28x;"
-            height="28px;"
           >
         </a>
         <a
           href="https://t.me/tokamak_network/"
           target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img class="footer-channel-image filter-grey" src="@/assets/images/community/telegram.png" width="28x;" height="28px;">
+          rel="noopener noreferrer">
+          <img class="footer-channel-image filter-grey" src="@/assets/images/community/telegram.png">
         </a>
       </div>
     </div>
@@ -187,6 +174,8 @@ margin: 0px 70px 0px 10px;
 
 .footer-channel-image {
   padding-left: 4px;
+  height: 28px;
+  width: 28px;
 }
 
 .footer-channel-image:hover {
@@ -194,9 +183,39 @@ margin: 0px 70px 0px 10px;
   -webkit-filter: invert(30%) grayscale(100%) brightness(70%) contrast(4);
   filter: invert(30%) grayscale(100%) brightness(70%) contrast(4);
 }
-@media screen and (max-width: 670px) {
-  .address-container{
+@media screen and (max-width: 600px) {
+.footer-name {
+  opacity: 1;
+  font-family: Roboto;
+  font-size: 13px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #b2b7b9;
+}
+.address-container{
 margin: 0px 10px 0px 10px;
+}
+.footer-address {
+  font-family: Roboto;
+  font-size: 10px;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #6d848e;
+}
+.footer-channel-container {
+  padding-top: 8px;
+  display: flex;
+  flex-direction: row-reverse;
+  flex-wrap: wrap ;
+}.footer-channel-image {
+  padding-left: 4px;
+  height: 20px;
+  width: 20px;
 }
 }
 </style>
