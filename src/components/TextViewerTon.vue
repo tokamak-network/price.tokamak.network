@@ -32,7 +32,7 @@ export default {
     padding: 5px;
 }
 /* ipad view */
-/* @media screen and (max-width: 992px) {
+@media screen and (max-width: 992px) {
   .text-viewer {
   display: flex;
   flex-direction: column;
@@ -40,7 +40,7 @@ export default {
   width: 100%;
   height: 130px;
 }
-} */
+}
 @media screen and (max-width: 600px) {
   .text-viewer-ton {
   display: flex;
