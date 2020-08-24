@@ -2,11 +2,16 @@
   <div class="dashbboard-container">
     <div class="date">{{ currentTime }}</div>
     <div class="row">
+      <!-- <div :style="{'margin-right':'0px'}"> -->
       <TextViewerTon :title="'TON Price'" :BTCValue="info.trade_price" :KRWValue="info.trade_price*krw" />
+      <!-- </div> -->
+
       <TextViewerTon :title="'Trading Volume'" :BTCValue="info.acc_trade_price_24h" :KRWValue="info.acc_trade_price_24h*krw" />
     </div>
     <div class="row">
-      <TextViewer :title="'Market Cap'" :krw="circulatingSupply*info.trade_price*krw" :ton="circulatingSupply" :subTitle="'Circulating Supply'" :tooltip="'hi'" />
+      <!-- <div :style="{'margin-right':'0px'}"> -->
+      <TextViewer :title="'Market Cap'" :krw="circulatingSupply*info.trade_price*krw" :ton="circulatingSupply" :subTitle="'Circulating Supply'" :tooltip="'true'" />
+      <!-- </div> -->
       <TextViewer :title="'Market Cap'" :krw="info.trade_price*krw*50000000" :ton="50000000" :subTitle="'Total Supply'" :tooltip="''" />
     </div>
     <div class="row">
@@ -144,7 +149,7 @@ export default {
 .row {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content:center;
 }
 
 @media screen and (max-width: 670px) {

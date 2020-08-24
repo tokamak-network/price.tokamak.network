@@ -13,7 +13,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .text-viewer {
   display: flex;
   flex-direction: column;
@@ -30,7 +30,7 @@ export default {
     padding: 5px;
 }
 
-@media screen and (max-width: 670px) {
+@media screen and (max-width: 600px) {
   .text-viewer {
   display: flex;
   flex-direction: column;
