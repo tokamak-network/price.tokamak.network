@@ -18,7 +18,7 @@ export default {
   display: flex;
   flex-direction: column;
   padding: 5px;
-  width: 100%;
+  width: 20%;
   height: 130px;
 }
 .title {
@@ -28,5 +28,15 @@ export default {
 .content {
     font-size: 15px;
     padding: 5px;
+}
+
+@media screen and (max-width: 670px) {
+  .text-viewer {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  width: 100%;
+  height: 130px;
+}
 }
 </style>

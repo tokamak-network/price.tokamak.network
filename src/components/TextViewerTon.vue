@@ -18,7 +18,7 @@ export default {
   display: flex;
   flex-direction: column;
   padding: 5px;
-  width: 30%;
+  width: 20%;
   height: 130px;
 }
 .title-ton {
