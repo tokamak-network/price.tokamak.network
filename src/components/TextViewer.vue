@@ -54,15 +54,15 @@ export default {
 }
 
 /* ipad view */
-/* @media screen and (max-width: 992px) {
+@media screen and (max-width: 992px) {
   .text-viewer {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   padding: 5px;
- width: 20%;
+ width: 100%;
   height: 150px;
 }
-} */
+}
 
 @media screen and (max-width: 600px) {
   .text-viewer {
