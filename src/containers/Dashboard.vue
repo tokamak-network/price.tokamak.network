@@ -147,7 +147,7 @@ export default {
   justify-content:center;
 }
 
-@media screen and (max-width: 992px) {
+@media screen and (max-width: 600px) {
   .dashbboard-container {
   margin-top: 10px;
   display: flex;
