@@ -19,7 +19,6 @@ export default {
   flex-direction: column;
   padding: 5px;
   width: 20%;
-  /* margin-right: 200px; */
   height: 130px;
 }
 .title-ton {
@@ -33,11 +32,11 @@ export default {
 }
 /* ipad view */
 @media screen and (max-width: 992px) {
-  .text-viewer {
+  .text-viewer-ton {
   display: flex;
   flex-direction: column;
   padding: 5px;
-  width: 100%;
+ width: 100%;
   height: 130px;
 }
 }
