@@ -2,18 +2,18 @@
   <div class="dashbboard-container">
     <div class="date">{{ currentTime }}</div>
     <div class="row">
-      <TextViewerTon :title="'TON Price'" :BTCValue="info.trade_price" :KRWValue="info.trade_price*krw" />
-      <TextViewerTon :title="'Trading Volume'" :BTCValue="info.acc_trade_price_24h" :KRWValue="info.acc_trade_price_24h*krw" />
+      <TextViewerTon :title="'TON Price'" :KRWValue="info.trade_price" :USDTValue="btc.trade_price*usdt" />
+      <TextViewerTon :title="'Trading Volume'" :KRWValue="info.acc_trade_price_24h" :USDTValue="btc.acc_trade_price_24h*usdt" />
     </div>
     <div class="row">
-      <TextViewer :title="'Market Cap'" :krw="circulatingSupply*info.trade_price*krw" :ton="circulatingSupply" :subTitle="'Circulating Supply'" :tooltip="'true'" />
-      <TextViewer :title="'Market Cap'" :krw="info.trade_price*krw*50000000" :ton="50000000" :subTitle="'Total Supply'" :tooltip="''" />
+      <TextViewer :title="'Market Cap'" :krw="circulatingSupply*info.trade_price" :usdt="circulatingSupply*btc.trade_price*usdt" :subTitle="'Circulating Supply'" :tooltip="'true'" />
+      <TextViewer :title="'Market Cap'" :krw="info.trade_price*50000000" :usdt="50000000*btc.trade_price*usdt" :subTitle="'Total Supply'" :tooltip="''" />
     </div>
     <div class="row">
-      <TextViewerBottom :title="'Opening Price'" :btc="info.opening_price" :krw="info.opening_price*krw" />
-      <TextViewerBottom :title="'Closing Price'" :btc="info.prev_closing_price" :krw="info.prev_closing_price*krw" />
-      <TextViewerBottom :title="'High Price'" :btc="info.high_price" :krw="info.high_price*krw" />
-      <TextViewerBottom :title="'Low Price'" :btc="info.low_price" :krw="info.low_price*krw" />
+      <TextViewerBottom :title="'Opening Price'" :krw="info.opening_price" :usdt="btc.opening_price*usdt" />
+      <TextViewerBottom :title="'Closing Price'" :krw="info.prev_closing_price" :usdt="btc.prev_closing_price*usdt" />
+      <TextViewerBottom :title="'High Price'" :krw="info.high_price" :usdt="btc.high_price*usdt" />
+      <TextViewerBottom :title="'Low Price'" :krw="info.low_price" :usdt="btc.low_price*usdt" />
     </div>
   </div>
 </template>
@@ -39,7 +39,10 @@ export default {
       info: {
         type: Object,
       },
-      krw: {
+      btc: {
+        type: Object,
+      },
+      usdt: {
         type: String,
       },
       circulatingSupply: 0,
@@ -53,10 +56,13 @@ export default {
     this.currentTime = moment().format('DD/MM/YYYY hh:mm:ss ') + timezone;
     setInterval(() => this.updateCurrentTime(), 1000);
     this.getCurrencyInfo();
-    setInterval(() => {this.getCurrencyInfo();}, 3000 );
-    this.getKRWInfo();
+    setInterval(() => {this.getCurrencyInfo();}, 30000 );
+    this.getBTCInfo();
+    setInterval(() => {this.getBTCInfo();}, 30000 );
+    this.getUSDInfo();
+    setInterval(() => {this.getUSDInfo();}, 30000 );
     this.getCirculatingSupply();
-    setInterval(() => {this.getCirculatingSupply();}, 3000 );
+    setInterval(() => {this.getCirculatingSupply();}, 1800000 );
   },
   mounted () {
 
@@ -70,16 +76,23 @@ export default {
     },
     getCurrencyInfo () {
       axios
-        .get('https://api.upbit.com/v1/ticker?markets=BTC-TON')
+        .get('https://api.upbit.com/v1/ticker?markets=KRW-TON')
         .then(response => (
           this.info = JSON.parse(JSON.stringify(response.data).replace(/]|[[]/g, ''))
         ));
     },
-    getKRWInfo () {
+    getBTCInfo () {
       axios
-        .get('https://api.upbit.com/v1/ticker?markets=KRW-BTC')
+        .get('https://api.upbit.com/v1/ticker?markets=BTC-TON')
         .then(response => (
-          this.krw = JSON.parse(JSON.stringify(response.data).replace(/]|[[]/g, '')).trade_price
+          this.btc = JSON.parse(JSON.stringify(response.data).replace(/]|[[]/g, ''))
+        ));
+    },
+    getUSDInfo () {
+      axios
+        .get('https://api.upbit.com/v1/ticker?markets=USDT-BTC')
+        .then(response => (
+          this.usdt = JSON.parse(JSON.stringify(response.data).replace(/]|[[]/g, '')).trade_price
         ));
     },
     getCirculatingSupply () {

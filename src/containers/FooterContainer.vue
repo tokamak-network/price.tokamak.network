@@ -94,7 +94,8 @@
         <a
           href="https://t.me/tokamak_network/"
           target="_blank"
-          rel="noopener noreferrer">
+          rel="noopener noreferrer"
+        >
           <img class="footer-channel-image filter-grey" src="@/assets/images/community/telegram.png">
         </a>
       </div>
