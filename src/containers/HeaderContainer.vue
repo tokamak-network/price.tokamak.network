@@ -143,7 +143,7 @@ button:focus {
 .dropbtn {
   flex-direction: row;
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   background: #ffffff;
   border: none;
   padding-left: 10px;

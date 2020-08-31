@@ -14,14 +14,14 @@
     </div>
     <div v-else class="sub-title"> ( {{ subTitle }} )</div>
     <div class="content">{{ Math.trunc(krw).toLocaleString('en-US') }} KRW </div>
-    <div class="content-ton">( {{ usdt.toLocaleString(undefined, { maximumFractionDigits: 2, minimumFractionDigits: 2 }) }} USDT )</div>
+    <div class="content-ton">( {{ usd.toLocaleString(undefined, { maximumFractionDigits: 2, minimumFractionDigits: 2 }) }} USD )</div>
   </div>
 </template>
 
 <script>
 export default {
   name: 'TextViewer',
-  props: ['title', 'krw', 'subTitle', 'usdt', 'tooltip'],
+  props: ['title', 'krw', 'subTitle', 'usd', 'tooltip'],
 };
 </script>
 

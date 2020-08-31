@@ -2,14 +2,14 @@
   <div class="text-viewer">
     <div class="title">{{ title }}</div>
     <div class="content">{{ Math.trunc(krw).toLocaleString('en-US') }} KRW</div>
-    <div class="content">( {{ usdt.toLocaleString(undefined, { maximumFractionDigits: 2, minimumFractionDigits: 2 }) }} USDT )</div>
+    <div class="content">( {{ usd.toLocaleString(undefined, { maximumFractionDigits: 2, minimumFractionDigits: 2 }) }} USD )</div>
   </div>
 </template>
 
 <script>
 export default {
   name: 'TextViewerBottom',
-  props: ['title', 'usdt', 'krw'],
+  props: ['title', 'usd', 'krw'],
 };
 </script>
 
