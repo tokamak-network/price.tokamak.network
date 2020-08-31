@@ -2,18 +2,18 @@
   <div class="dashbboard-container">
     <div class="date">{{ currentTime }}</div>
     <div class="row">
-      <TextViewerTon :title="'TON Price'" :KRWValue="info.trade_price" :USDTValue="btc.trade_price*usdt" />
-      <TextViewerTon :title="'Trading Volume'" :KRWValue="info.acc_trade_price_24h" :USDTValue="btc.acc_trade_price_24h*usdt" />
+      <TextViewerTon :title="'TON Price'" :KRWValue="info.trade_price" :USDTValue="btc.trade_price*usdt.trade_price" />
+      <TextViewerTon :title="'Trading Volume'" :KRWValue="info.acc_trade_price_24h" :USDTValue="info.acc_trade_price_24h*btc.trade_price*usdt.trade_price" />
     </div>
     <div class="row">
-      <TextViewer :title="'Market Cap'" :krw="circulatingSupply*info.trade_price" :usdt="circulatingSupply*btc.trade_price*usdt" :subTitle="'Circulating Supply'" :tooltip="'true'" />
-      <TextViewer :title="'Market Cap'" :krw="info.trade_price*50000000" :usdt="50000000*btc.trade_price*usdt" :subTitle="'Total Supply'" :tooltip="''" />
+      <TextViewer :title="'Market Cap'" :krw="circulatingSupply*info.trade_price" :usdt="circulatingSupply*btc.trade_price*usdt.trade_price" :subTitle="'Circulating Supply'" :tooltip="'true'" />
+      <TextViewer :title="'Market Cap'" :krw="info.trade_price*50000000" :usdt="50000000*btc.trade_price*usdt.trade_price" :subTitle="'Total Supply'" :tooltip="''" />
     </div>
     <div class="row">
-      <TextViewerBottom :title="'Opening Price'" :krw="info.opening_price" :usdt="btc.opening_price*usdt" />
-      <TextViewerBottom :title="'Closing Price'" :krw="info.prev_closing_price" :usdt="btc.prev_closing_price*usdt" />
-      <TextViewerBottom :title="'High Price'" :krw="info.high_price" :usdt="btc.high_price*usdt" />
-      <TextViewerBottom :title="'Low Price'" :krw="info.low_price" :usdt="btc.low_price*usdt" />
+      <TextViewerBottom :title="'Opening Price'" :krw="info.opening_price" :usdt="btc.opening_price*usdt.trade_price" />
+      <TextViewerBottom :title="'Closing Price'" :krw="info.prev_closing_price" :usdt="btc.prev_closing_price*usdt.trade_price" />
+      <TextViewerBottom :title="'High Price'" :krw="info.high_price" :usdt="btc.high_price*usdt.trade_price" />
+      <TextViewerBottom :title="'Low Price'" :krw="info.low_price" :usdt="btc.low_price*usdt.trade_price" />
     </div>
   </div>
 </template>
@@ -43,7 +43,7 @@ export default {
         type: Object,
       },
       usdt: {
-        type: String,
+        type: Object,
       },
       circulatingSupply: 0,
       currentTime: null,
@@ -92,7 +92,7 @@ export default {
       axios
         .get('https://api.upbit.com/v1/ticker?markets=USDT-BTC')
         .then(response => (
-          this.usdt = JSON.parse(JSON.stringify(response.data).replace(/]|[[]/g, '')).trade_price
+          this.usdt = JSON.parse(JSON.stringify(response.data).replace(/]|[[]/g, ''))
         ));
     },
     getCirculatingSupply () {
