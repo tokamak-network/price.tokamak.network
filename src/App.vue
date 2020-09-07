@@ -4,17 +4,20 @@
     <div class="body-container">
       <Dashboard />
     </div>
+    <FooterContainer />
   </div>
 </template>
 
 <script>
 import Dashboard from '@/containers/Dashboard.vue';
 import HeaderContainer from '@/containers/HeaderContainer.vue';
+import FooterContainer from '@/containers/FooterContainer.vue';
 export default {
   name: 'App',
   components: {
     Dashboard,
     HeaderContainer,
+    FooterContainer,
   },
   data () {
     return {
@@ -24,7 +27,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #app {
   display: flex;
   flex-direction: column;
@@ -37,12 +40,19 @@ export default {
   justify-content: center;
 }
 .body-container {
-  min-width: 960px;
-  max-width: 960px;
+  /* max-width: 960rem; */
   display: flex;
   flex: 1;
   justify-content: center;
   margin-left: auto;
   margin-right: auto;
+}
+@media screen and (max-width: 670rem) {
+ .body-container {
+  display: flex;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+}
 }
 </style>

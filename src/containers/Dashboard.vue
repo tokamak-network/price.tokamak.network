@@ -1,19 +1,19 @@
 <template>
-  <div class="body-container">
+  <div class="dashbboard-container">
     <div class="date">{{ currentTime }}</div>
     <div class="row">
-      <TextViewerTon :title="'TON Price'" :BTCValue="info.trade_price" :KRWValue="info.trade_price*krw" />
-      <TextViewer :title="'Trading Volume'" :content="info.acc_trade_price_24h" :subTitle="''" :unit="'BTC'" />
+      <TextViewerTon :title="'TON Price'" :KRWValue="info.trade_price" :USDValue="info.trade_price*usd" />
+      <TextViewerTon :title="'Trading Volume'" :KRWValue="info.acc_trade_price_24h" :USDValue="info.acc_trade_price_24h*usd" />
     </div>
     <div class="row">
-      <TextViewer :title="'Market Cap'" :content="(circulatingSupply*info.trade_price*krw).toLocaleString('en-US', {minimumFractionDigits: 2})" :subTitle="'(Circulating Supply)'" :unit="'KRW'" />
-      <TextViewer :title="'Market Cap'" :content="(info.trade_price*krw*50000000).toLocaleString('en-US', {minimumFractionDigits: 2})" :subTitle="'(Total Supply)'" :unit="'KRW'" />
+      <TextViewer :title="'Market Cap'" :krw="circulatingSupply*info.trade_price" :usd="circulatingSupply*info.trade_price*usd" :subTitle="'Circulating Supply'" :tooltip="'true'" />
+      <TextViewer :title="'Market Cap'" :krw="info.trade_price*50000000" :usd="50000000*info.trade_price*usd" :subTitle="'Total Supply'" :tooltip="''" />
     </div>
     <div class="row">
-      <TextViewerBottom :title="'Initial Price'" :content="info.opening_price" :unit="'BTC'" />
-      <TextViewerBottom :title="'Closing Price'" :content="info.prev_closing_price" :unit="'BTC'" />
-      <TextViewerBottom :title="'High Price'" :content="info.high_price" :unit="'BTC'" />
-      <TextViewerBottom :title="'Low Price'" :content="info.low_price" :unit="'BTC'" />
+      <TextViewerBottom :title="'Opening Price'" :krw="info.opening_price" :usd="info.opening_price*usd" />
+      <TextViewerBottom :title="'Closing Price'" :krw="info.prev_closing_price" :usd="info.prev_closing_price*usd" />
+      <TextViewerBottom :title="'High Price'" :krw="info.high_price" :usd="info.high_price*usd" />
+      <TextViewerBottom :title="'Low Price'" :krw="info.low_price" :usd="info.low_price*usd" />
     </div>
   </div>
 </template>
@@ -23,6 +23,7 @@ import TextViewer from '@/components/TextViewer.vue';
 import TextViewerBottom from '@/components/TextViewerBottom.vue';
 import TextViewerTon from '@/components/TextViewerTon.vue';
 import moment from 'moment';
+
 const axios = require('axios');
 export default {
   name: 'Dashboard',
@@ -38,7 +39,10 @@ export default {
       info: {
         type: Object,
       },
-      krw: {
+      btc: {
+        type: Object,
+      },
+      usd: {
         type: String,
       },
       circulatingSupply: 0,
@@ -46,33 +50,40 @@ export default {
     };
   },
   created () {
-    this.currentTime = moment().format('DD/MM/YYYY hh:mm:ss');
+    const moments = require('moment-timezone');
+    const zoneName =  moments.tz.guess();
+    const timezone = moments.tz(zoneName).zoneAbbr();
+    this.currentTime = moment().format('DD/MM/YYYY hh:mm:ss ') + timezone;
     setInterval(() => this.updateCurrentTime(), 1000);
     this.getCurrencyInfo();
-    setInterval(() => {this.getCurrencyInfo();}, 3000 );
-    this.getKRWInfo();
+    setInterval(() => {this.getCurrencyInfo();}, 30000 );
+    this.getUSDInfo();
+    setInterval(() => {this.getUSDInfo();}, 30000 );
     this.getCirculatingSupply();
-    setInterval(() => {this.getCirculatingSupply();}, 3000 );
+    setInterval(() => {this.getCirculatingSupply();}, 1800000 );
   },
   mounted () {
 
   },
   methods: {
     updateCurrentTime () {
-      this.currentTime = moment().format('DD/MM/YYYY hh:mm:ss');
+      const moments = require('moment-timezone');
+      const zoneName =  moments.tz.guess();
+      const timezone = moments.tz(zoneName).zoneAbbr();
+      this.currentTime = moment().format('DD/MM/YYYY hh:mm:ss ') + timezone;
     },
     getCurrencyInfo () {
       axios
-        .get('https://api.upbit.com/v1/ticker?markets=BTC-TON')
+        .get('https://api.upbit.com/v1/ticker?markets=KRW-TON')
         .then(response => (
           this.info = JSON.parse(JSON.stringify(response.data).replace(/]|[[]/g, ''))
         ));
     },
-    getKRWInfo () {
+    getUSDInfo () {
       axios
-        .get('https://api.upbit.com/v1/ticker?markets=KRW-BTC')
+        .get('https://api.frankfurter.app/latest?from=KRW')
         .then(response => (
-          this.krw = JSON.parse(JSON.stringify(response.data).replace(/]|[[]/g, '')).trade_price
+          this.usd = response.data.rates.USD
         ));
     },
     getCirculatingSupply () {
@@ -122,9 +133,9 @@ export default {
 </script>
 
 <style scoped>
-.body-container {
-  min-width: 960px;
-  max-width: 960px;
+.dashbboard-container {
+  min-width: 100vw;
+  margin-top: 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -132,16 +143,32 @@ export default {
 .date {
   font-weight: bold;
   font-size: 50px;
-  padding-bottom: 50px;
+  padding-bottom: 20px;
 }
 .row {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content:center;
 }
-/* .row {
+
+@media screen and (max-width: 600px) {
+  .dashbboard-container {
+  margin-top: 10px;
+  display: flex;
+  flex-flow: column wrap;
+  flex-direction: column;
+  position: relative;
+}
+.date {
+  font-weight: bold;
+  font-size: 40px;
+  padding-bottom: 20px;
+}
+.row {
   display: flex;
   flex-direction: column;
   justify-content: center;
-} */
+  align-self: center;
+}
+}
 </style>
