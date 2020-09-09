@@ -1,5 +1,5 @@
 <template>
-  <div class="text-viewer">
+  <div class="text-viewer-bottom">
     <div class="title">{{ title }}</div>
     <div class="content">{{ Math.trunc(krw).toLocaleString('en-US') }} KRW</div>
     <div class="content">( {{ usd.toLocaleString(undefined, { maximumFractionDigits: 2, minimumFractionDigits: 2 }) }} USD )</div>
@@ -14,7 +14,7 @@ export default {
 </script>
 
 <style scoped>
-.text-viewer {
+.text-viewer-bottom {
   display: flex;
   flex-direction: column;
   padding: 5px;
@@ -31,7 +31,7 @@ export default {
 }
 
 @media screen and (max-width: 600px) {
-  .text-viewer {
+  .text-viewer-bottom {
   display: flex;
   flex-direction: column;
   padding: 5px;

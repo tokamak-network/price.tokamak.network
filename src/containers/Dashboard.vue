@@ -6,8 +6,8 @@
       <TextViewerTon :title="'Trading Volume'" :KRWValue="info.acc_trade_price_24h" :USDValue="info.acc_trade_price_24h*usd" />
     </div>
     <div class="row">
-      <TextViewer :title="'Market Cap'" :krw="circulatingSupply*info.trade_price" :usd="circulatingSupply*info.trade_price*usd" :subTitle="'Circulating Supply'" :tooltip="'true'" />
-      <TextViewer :title="'Market Cap'" :krw="info.trade_price*50000000" :usd="50000000*info.trade_price*usd" :subTitle="'Total Supply'" :tooltip="''" />
+      <TextViewer :title="'Market Cap'" :krw="circulatingSupply*info.trade_price" :usd="circulatingSupply*info.trade_price*usd" :ton="circulatingSupply" :subTitle="'Circulating Supply'" :tooltip="'true'" />
+      <TextViewer :title="'Market Cap'" :krw="info.trade_price*50000000" :usd="50000000*info.trade_price*usd" :ton="50000000" :subTitle="'Total Supply'" :tooltip="''" />
     </div>
     <div class="row">
       <TextViewerBottom :title="'Opening Price'" :krw="info.opening_price" :usd="info.opening_price*usd" />
@@ -40,11 +40,9 @@ export default {
         type: Object,
       },
       btc: {
-        type: Object,
+        type: Number,
       },
-      usd: {
-        type: String,
-      },
+      usd: 0,
       circulatingSupply: 0,
       currentTime: null,
     };
