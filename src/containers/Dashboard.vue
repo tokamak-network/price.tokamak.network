@@ -86,7 +86,7 @@ export default {
     },
     getCirculatingSupply () {
       axios
-        .get('http://price-api.tokamak.network/circulatedcoins ')
+        .get('https://price-api.tokamak.network/circulatedcoins ')
         .then (response => {
           this.circulatingSupply = response.data;
         });
