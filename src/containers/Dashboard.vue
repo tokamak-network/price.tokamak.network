@@ -85,46 +85,11 @@ export default {
         ));
     },
     getCirculatingSupply () {
-      const now = new Date() / 1000;
-      if (now >= 1597201200 && now < 1599768000){
-        this.circulatingSupply = 953200;
-      }
-      if (now >= 1599768000 && now < 1602360000){
-        this.circulatingSupply = 2756880;
-      }
-      if (now >= 1602360000 && now < 1604952000){
-        this.circulatingSupply = 4560560;
-      }
-      if (now >= 1604952000 && now < 1607544000){
-        this.circulatingSupply = 6364240;
-      }
-      if (now >= 1607544000 && now < 1610136000){
-        this.circulatingSupply = 8167920;
-      }
-      if (now >= 1610136000 && now < 1612728000){
-        this.circulatingSupply = 9971600;
-      }
-      if (now >= 1612728000 && now < 1615320000){
-        this.circulatingSupply = 12066947;
-      }
-      if (now >= 1615320000 && now < 1617912000){
-        this.circulatingSupply = 13914793;
-      }
-      if (now >= 1617912000 && now < 1620504000){
-        this.circulatingSupply = 15762640;
-      }
-      if (now >= 1620504000 && now < 1623096000){
-        this.circulatingSupply = 17610487;
-      }
-      if (now >= 1623096000 && now < 1625688000){
-        this.circulatingSupply = 19458333;
-      }
-      if (now >= 1625688000 && now < 1628280000){
-        this.circulatingSupply = 20000000;
-      }
-      if (now >= 1628280000 && now < 1630872000){
-        this.circulatingSupply = 20641667;
-      }
+      axios
+        .get('http://price-api.tokamak.network/circulatedcoins ')
+        .then (response => {
+          this.circulatingSupply = response.data;
+        });
     },
   },
 };
