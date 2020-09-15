@@ -22,7 +22,7 @@
             class="header-link"
             target="_blank"
             rel="noopener noreferrer"
-            href="https://upbit.com/exchange?code=CRIX.UPBIT.BTC-TON"
+            href="https://upbit.com/exchange?code=CRIX.UPBIT.KRW-TON"
           >Buy TON</a>
         </div>
       </div>
@@ -37,7 +37,7 @@
           class="header-link"
           target="_blank"
           rel="noopener noreferrer"
-          href="https://upbit.com/exchange?code=CRIX.UPBIT.BTC-TON"
+          href="https://upbit.com/exchange?code=CRIX.UPBIT.KRW-TON"
           style="margin-left: 48px; margin-right: 36px;"
         >Buy TON</a>
       </div>
@@ -124,7 +124,7 @@ html, body {
 }
 @media screen and (max-width: 650px) {
   .header {
-  width: 960px;
+  width: 100vw;
   height: 100%;
   align-items: center;
   display: flex;
