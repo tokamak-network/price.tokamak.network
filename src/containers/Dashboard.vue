@@ -3,11 +3,14 @@
     <div class="date">{{ currentTime }}</div>
     <div class="row">
       <TextViewerTon :title="'TON Price'" :KRWValue="info.trade_price" :USDValue="info.trade_price*usd" />
+            <TextViewer :title="'Market Cap'" :krw="info.trade_price*50000000" :usd="50000000*info.trade_price*usd" :ton="50000000" :subTitle="'Total Supply'" :tooltip="''" />
       <TextViewerTon :title="'Trading Volume'" :KRWValue="info.acc_trade_price_24h" :USDValue="info.acc_trade_price_24h*usd" />
     </div>
     <div class="row">
       <TextViewer :title="'Market Cap'" :krw="circulatingSupply*info.trade_price" :usd="circulatingSupply*info.trade_price*usd" :ton="circulatingSupply" :subTitle="'Circulating Supply'" :tooltip="'true'" />
-      <TextViewer :title="'Market Cap'" :krw="info.trade_price*50000000" :usd="50000000*info.trade_price*usd" :ton="50000000" :subTitle="'Total Supply'" :tooltip="''" />
+            <TextViewerStaked :title="'Total Staked TON'" :KRWValue="totalStaked.toLocaleString(undefined, { maximumFractionDigits: 2, minimumFractionDigits: 2 })" :USDValue="((totalStaked/circulatingSupply)*100).toLocaleString(undefined, { maximumFractionDigits: 2, minimumFractionDigits: 2 })" />
+      <TextViewerStaked :title="'Total Tradable TON'" :KRWValue="(circulatingSupply-totalStaked).toLocaleString(undefined, { maximumFractionDigits: 2, minimumFractionDigits: 2 })" :USDValue="(((circulatingSupply-totalStaked)/circulatingSupply)*100).toLocaleString(undefined, { maximumFractionDigits: 2, minimumFractionDigits: 2 })" />
+
     </div>
     <div class="row">
       <TextViewerBottom :title="'Opening Price'" :krw="info.opening_price" :usd="info.opening_price*usd" />
@@ -20,6 +23,7 @@
 
 <script>
 import TextViewer from '@/components/TextViewer.vue';
+import TextViewerStaked from '@/components/TextViewerStaked.vue';
 import TextViewerBottom from '@/components/TextViewerBottom.vue';
 import TextViewerTon from '@/components/TextViewerTon.vue';
 import moment from 'moment';
@@ -31,6 +35,7 @@ export default {
     TextViewer,
     TextViewerBottom,
     TextViewerTon,
+    TextViewerStaked,
   },
   props :{
   },
@@ -45,6 +50,7 @@ export default {
       usd: 0,
       circulatingSupply: 0,
       currentTime: null,
+      totalStaked:0,
     };
   },
   created () {
@@ -59,6 +65,8 @@ export default {
     setInterval(() => {this.getUSDInfo();}, 30000 );
     this.getCirculatingSupply();
     setInterval(() => {this.getCirculatingSupply();}, 1800000 );
+    setInterval(() => {this.getTotalStaked();}, 30000 );
+    this.getTotalStaked();
   },
   mounted () {
 
@@ -89,6 +97,13 @@ export default {
         .get('https://price-api.tokamak.network/circulatedcoins ')
         .then (response => {
           this.circulatingSupply = response.data;
+        });
+    },
+    getTotalStaked () {
+      axios
+        .get('https://price-api.tokamak.network/staking/current')
+        .then (response => {
+          this.totalStaked = response.data;
         });
     },
   },
