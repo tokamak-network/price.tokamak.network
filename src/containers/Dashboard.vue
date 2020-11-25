@@ -3,7 +3,7 @@
     <div class="date">{{ currentTime }}</div>
     <div class="row">
       <TextViewerTon :title="'TON Price'" :KRWValue="info.trade_price" :USDValue="info.trade_price*usd" />
-            <TextViewer :title="'Market Cap'" :krw="info.trade_price*50000000" :usd="50000000*info.trade_price*usd" :ton="50000000" :subTitle="'Total Supply'" :tooltip="''" />
+            <TextViewer :title="'Market Cap'" :krw="info.trade_price*totalSupply" :usd="totalSupply*info.trade_price*usd" :ton="totalSupply" :subTitle="'Total Supply'" :tooltip="''" />
       <TextViewerTon :title="'Trading Volume'" :KRWValue="info.acc_trade_price_24h" :USDValue="info.acc_trade_price_24h*usd" />
     </div>
     <div class="row">
@@ -51,6 +51,7 @@ export default {
       circulatingSupply: 0,
       currentTime: null,
       totalStaked:0,
+      totalSupply:0,
     };
   },
   created () {
@@ -67,6 +68,8 @@ export default {
     setInterval(() => {this.getCirculatingSupply();}, 1800000 );
     setInterval(() => {this.getTotalStaked();}, 30000 );
     this.getTotalStaked();
+    setInterval(() => {this.getTotalSupply();}, 30000 );
+    this.getTotalSupply();
   },
   mounted () {
 
@@ -104,6 +107,13 @@ export default {
         .get('https://price-api.tokamak.network/staking/current')
         .then (response => {
           this.totalStaked = response.data;
+        });
+    },
+    getTotalSupply () {
+      axios
+        .get('https://price-api.tokamak.network/totalsupply')
+        .then (response => {
+          this.totalSupply = response.data;
         });
     },
   },
