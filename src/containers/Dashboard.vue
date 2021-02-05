@@ -3,14 +3,13 @@
     <div class="date">{{ currentTime }}</div>
     <div class="row">
       <TextViewerTon :title="'TON Price'" :KRWValue="info.trade_price" :USDValue="info.trade_price*usd" />
-            <TextViewer :title="'Market Cap'" :krw="info.trade_price*totalSupply" :usd="totalSupply*info.trade_price*usd" :ton="totalSupply" :subTitle="'Total Supply'" :tooltip="''" />
+      <TextViewer :title="'Market Cap'" :krw="info.trade_price*totalSupply" :usd="totalSupply*info.trade_price*usd" :ton="totalSupply" :subTitle="'Total Supply'" :tooltip="''" />
       <TextViewerTon :title="'Trading Volume'" :KRWValue="info.acc_trade_price_24h" :USDValue="info.acc_trade_price_24h*usd" />
     </div>
     <div class="row">
       <TextViewer :title="'Market Cap'" :krw="circulatingSupply*info.trade_price" :usd="circulatingSupply*info.trade_price*usd" :ton="circulatingSupply" :subTitle="'Circulating Supply'" :tooltip="'true'" />
-            <TextViewerStaked :title="'Total Staked TON'" :KRWValue="totalStaked.toLocaleString(undefined, { maximumFractionDigits: 2, minimumFractionDigits: 2 })" :USDValue="((totalStaked/circulatingSupply)*100).toLocaleString(undefined, { maximumFractionDigits: 2, minimumFractionDigits: 2 })" />
+      <TextViewerStaked :title="'Total Staked TON'" :KRWValue="totalStaked.toLocaleString(undefined, { maximumFractionDigits: 2, minimumFractionDigits: 2 })" :USDValue="((totalStaked/circulatingSupply)*100).toLocaleString(undefined, { maximumFractionDigits: 2, minimumFractionDigits: 2 })" />
       <TextViewerStaked :title="'Total Tradable TON'" :KRWValue="(circulatingSupply-totalStaked).toLocaleString(undefined, { maximumFractionDigits: 2, minimumFractionDigits: 2 })" :USDValue="(((circulatingSupply-totalStaked)/circulatingSupply)*100).toLocaleString(undefined, { maximumFractionDigits: 2, minimumFractionDigits: 2 })" />
-
     </div>
     <div class="row">
       <TextViewerBottom :title="'Opening Price'" :krw="info.opening_price" :usd="info.opening_price*usd" />
@@ -54,14 +53,23 @@ export default {
       totalSupply:0,
     };
   },
+
+  computed: {
+    getPrice () {
+      return this.info.trade_price;
+    },
+  },
   created () {
+
     const moments = require('moment-timezone');
     const zoneName =  moments.tz.guess();
     const timezone = moments.tz(zoneName).zoneAbbr();
     this.currentTime = moment().format('DD/MM/YYYY hh:mm:ss ') + timezone;
     setInterval(() => this.updateCurrentTime(), 1000);
     this.getCurrencyInfo();
-    setInterval(() => {this.getCurrencyInfo();}, 30000 );
+    setTimeout(() => {this.updateTitle();}, 100);
+    setInterval(() => {this.getCurrencyInfo();}, 300000 );
+    setInterval(() => this.updateTitle(), 60000);
     this.getUSDInfo();
     setInterval(() => {this.getUSDInfo();}, 30000 );
     this.getCirculatingSupply();
@@ -70,8 +78,7 @@ export default {
     this.getTotalStaked();
     setInterval(() => {this.getTotalSupply();}, 30000 );
     this.getTotalSupply();
-  },
-  mounted () {
+
 
   },
   methods: {
@@ -86,7 +93,9 @@ export default {
         .get('https://api.upbit.com/v1/ticker?markets=KRW-TON')
         .then(response => (
           this.info = JSON.parse(JSON.stringify(response.data).replace(/]|[[]/g, ''))
+
         ));
+
     },
     getUSDInfo () {
       axios
@@ -115,6 +124,17 @@ export default {
         .then (response => {
           this.totalSupply = response.data;
         });
+    },
+    updateTitle () {
+      if (this.info.trade_price === undefined) {
+        const title = 'Tokamak Network Price Dashboard';
+        document.title = title;
+      }
+      else {
+        const title = Math.trunc(this.info.trade_price).toLocaleString('en-US') + ' TON/KRW';
+        document.title = title;
+      }
+
     },
   },
 };
