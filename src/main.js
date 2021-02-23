@@ -1,5 +1,12 @@
 import Vue from 'vue';
 import App from './App.vue';
+import VueGtag from 'vue-gtag';
+
+Vue.use(VueGtag, {
+  config: {
+    id: 'UA-000000000-0',
+  },
+});
 
 import router from './router';
 import store from './store';

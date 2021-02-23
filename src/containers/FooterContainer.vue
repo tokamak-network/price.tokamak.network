@@ -1,6 +1,6 @@
 <template>
   <div class="footer-container">
-    <div class="address-container">
+    <div>
       <div class="footer-name">
         ONTHER PTE.LTD.
       </div>
@@ -8,9 +8,31 @@
         10 ANSON ROAD #23-140 INTERNATIONAL PLAZA SINGAPORE
       </div>
     </div>
-    <div class="info-container">
+    <div>
       <div class="footer-mail-container">
-        <a class="footer-mail" href="mailto:info@onther.io">info@onther.io</a>
+        <dropup
+          :items="[
+            'Onther Inc',
+            'Tokamak Netowork',
+            'DAO governance',
+            'Original Staking',
+            'Simple Staking',
+            'Staking Simulator',
+            'Price Dashboard',
+            'Vesting Dashboard',
+            'TN Document'
+          ]"
+          :hint="'Family site'"
+          :button-type="'b'"
+          :selector-type="'a'"
+          class="dropdown"
+          style="margin-left: 20px; width: 130px;"
+          @on-selected="familyLink"
+        />
+        <a
+          class="footer-mail"
+          href="mailto:info@onther.io"
+        >info@onther.io</a>
         <img
           class="filter-grey"
           src="@/assets/images/Mail.png"
@@ -27,6 +49,8 @@
           <img
             class="footer-channel-image filter-grey"
             src="@/assets/images/community/medium.png"
+            width="28x;"
+            height="28px;"
           >
         </a>
         <a
@@ -37,6 +61,8 @@
           <img
             class="footer-channel-image filter-grey"
             src="@/assets/images/community/linkedin.png"
+            width="28x;"
+            height="28px;"
           >
         </a>
         <a
@@ -47,6 +73,8 @@
           <img
             class="footer-channel-image filter-grey"
             src="@/assets/images/community/twitter.png"
+            width="28x;"
+            height="28px;"
           >
         </a>
         <a
@@ -69,6 +97,8 @@
           <img
             class="footer-channel-image filter-grey"
             src="@/assets/images/community/facebook.png"
+            width="28x;"
+            height="28px;"
           >
         </a>
         <a
@@ -79,6 +109,8 @@
           <img
             class="footer-channel-image filter-grey"
             src="@/assets/images/community/github.png"
+            width="28x;"
+            height="28px;"
           >
         </a>
         <a
@@ -89,6 +121,8 @@
           <img
             class="footer-channel-image filter-grey"
             src="@/assets/images/community/discord.png"
+            width="28x;"
+            height="28px;"
           >
         </a>
         <a
@@ -96,7 +130,12 @@
           target="_blank"
           rel="noopener noreferrer"
         >
-          <img class="footer-channel-image filter-grey" src="@/assets/images/community/telegram.png">
+          <img
+            class="footer-channel-image filter-grey"
+            src="@/assets/images/community/telegram.png"
+            width="28x;"
+            height="28px;"
+          >
         </a>
       </div>
     </div>
@@ -104,7 +143,28 @@
 </template>
 
 <script>
-export default {};
+import DropupLink from '@/components/DropupLink.vue';
+
+export default {
+  components: {
+    'dropup': DropupLink,
+  },
+  methods: {
+    familyLink (item) {
+      switch (item) {
+      case 'Onther Inc': window.open('https://tokamak.network', '_blank'); // eslint-disable-line
+      // case 'Tokamak Netowork': window.open('https://tokamak.network', '_blank'); // eslint-disable-line
+      // case 'DAO governance': window.open('https://tokamak.network', '_blank'); // eslint-disable-line
+      case 'Original Staking': window.open('https://staking.tokamak.network', '_blank'); // eslint-disable-line
+      case 'Simple Staking': window.open('https://simple.staking.tokamak.network', '_blank'); // eslint-disable-line
+      case 'Staking Simulator': window.open('https://staking-simulator.tokamak.network', '_blank'); // eslint-disable-line
+      case 'Price Dashboard': window.open('https://price.tokamak.network', '_blank'); // eslint-disable-line
+      case 'Vesting Dashboard': window.open('https://vesting.tokamak.network', '_blank'); // eslint-disable-line
+      case 'TN Document': window.open('https://docs.tokamak.network', '_blank'); // eslint-disable-line
+      }
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -129,10 +189,9 @@ export default {};
   text-align: left;
   color: #b2b7b9;
 }
-.address-container{
-margin: 0px 70px 0px 10px;
-}
+
 .footer-address {
+  margin-right: 70px;
   font-family: Roboto;
   font-size: 13px;
   font-stretch: normal;
@@ -142,11 +201,8 @@ margin: 0px 70px 0px 10px;
   color: #6d848e;
 }
 
-.info-container{
-  padding-right: 10px;
-}
 .footer-mail-container {
-  padding-right: 6px;
+  /* padding-right: 6px; */
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
@@ -175,48 +231,11 @@ margin: 0px 70px 0px 10px;
 
 .footer-channel-image {
   padding-left: 4px;
-  height: 28px;
-  width: 28px;
 }
 
 .footer-channel-image:hover {
   cursor: pointer;
   -webkit-filter: invert(30%) grayscale(100%) brightness(70%) contrast(4);
   filter: invert(30%) grayscale(100%) brightness(70%) contrast(4);
-}
-@media screen and (max-width: 600px) {
-.footer-name {
-  opacity: 1;
-  font-family: Roboto;
-  font-size: 13px;
-  font-weight: bold;
-  font-stretch: normal;
-  font-style: normal;
-  letter-spacing: normal;
-  text-align: left;
-  color: #b2b7b9;
-}
-.address-container{
-margin: 0px 10px 0px 10px;
-}
-.footer-address {
-  font-family: Roboto;
-  font-size: 10px;
-  font-stretch: normal;
-  font-style: normal;
-  letter-spacing: normal;
-  text-align: left;
-  color: #6d848e;
-}
-.footer-channel-container {
-  padding-top: 8px;
-  display: flex;
-  flex-direction: row-reverse;
-  flex-wrap: wrap ;
-}.footer-channel-image {
-  padding-left: 4px;
-  height: 20px;
-  width: 20px;
-}
 }
 </style>
