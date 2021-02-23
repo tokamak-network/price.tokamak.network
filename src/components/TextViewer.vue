@@ -13,7 +13,7 @@
       <div> )</div>
     </div>
     <div v-else class="sub-title"> ( {{ subTitle }} )</div>
-    <div class="content">{{ Math.trunc(krw).toLocaleString('en-US') }} KRW </div>
+    <div class="content">{{ Math.trunc(ton).toLocaleString('en-US') }} TON </div>
     <div class="content-ton">( {{ usd.toLocaleString(undefined, { maximumFractionDigits: 2, minimumFractionDigits: 2 }) }} USD )</div>
   </div>
 </template>
@@ -21,7 +21,7 @@
 <script>
 export default {
   name: 'TextViewer',
-  props: ['title', 'krw', 'subTitle', 'usd', 'tooltip'],
+  props: ['title', 'krw', 'subTitle', 'usd', 'tooltip', 'ton'],
 };
 </script>
 
@@ -31,7 +31,7 @@ export default {
   flex-direction: column;
   padding: 5px;
   width: 20%;
-  height: 150px;
+  height: 190px;
   padding-bottom: 20px;
 }
 .title {
@@ -48,6 +48,10 @@ export default {
 }
 .content-ton {
     font-size: 15px;
+    padding: 5px;
+}
+.content {
+   padding: 5px;
 }
 .tooltip {
   padding: 0px 5px;
@@ -60,7 +64,7 @@ export default {
   flex-direction: column;
   padding: 5px;
  width: 100%;
-  height: 150px;
+  height: 190px;
 }
 }
 
@@ -70,7 +74,7 @@ export default {
   flex-direction: column;
   padding: 5px;
   width: 100%;
-  height: 150px;
+  height: 190px;
 }
 }
 </style>

@@ -1,28 +1,107 @@
 <template>
-  <div class="dashbboard-container">
-    <div class="date">{{ currentTime }}</div>
-    <div class="row">
-      <TextViewerTon :title="'TON Price'" :KRWValue="info.trade_price" :USDValue="info.trade_price*usd" />
-      <TextViewerTon :title="'Trading Volume'" :KRWValue="info.acc_trade_price_24h" :USDValue="info.acc_trade_price_24h*usd" />
+  <div>
+    <div v-if="loaded" class="dashbboard-container">
+      <div class="date">{{ currentTime }}</div>
+      <div class="row">
+        <TextViewerTon
+          :title="'TON Price'"
+          :KRWValue="info.trade_price"
+          :USDValue="info.trade_price * usd"
+        />
+        <TextViewer
+          :title="'Market Cap'"
+          :krw="info.trade_price * totalSupply"
+          :usd="totalSupply * info.trade_price * usd"
+          :ton="totalSupply"
+          :subTitle="'Total Supply'"
+          :tooltip="''"
+        />
+        <TextViewerTon
+          :title="'Trading Volume'"
+          :KRWValue="info.acc_trade_price_24h"
+          :USDValue="info.acc_trade_price_24h * usd"
+        />
+      </div>
+      <div class="row">
+        <TextViewer
+          :title="'Market Cap'"
+          :krw="circulatingSupply * info.trade_price"
+          :usd="circulatingSupply * info.trade_price * usd"
+          :ton="circulatingSupply"
+          :subTitle="'Circulating Supply'"
+          :tooltip="'true'"
+        />
+        <TextViewerStaked
+          :title="'Total Staked TON'"
+          :KRWValue="
+            totalStaked.toLocaleString(undefined, {
+              maximumFractionDigits: 2,
+              minimumFractionDigits: 2,
+            })
+          "
+          :USDValue="
+            ((totalStaked / circulatingSupply) * 100).toLocaleString(undefined, {
+              maximumFractionDigits: 2,
+              minimumFractionDigits: 2,
+            })
+          "
+        />
+        <TextViewerStaked
+          :title="'Total Tradable TON'"
+          :KRWValue="
+            (circulatingSupply - totalStaked).toLocaleString(undefined, {
+              maximumFractionDigits: 2,
+              minimumFractionDigits: 2,
+            })
+          "
+          :USDValue="
+            (
+              ((circulatingSupply - totalStaked) / circulatingSupply) *
+              100
+            ).toLocaleString(undefined, {
+              maximumFractionDigits: 2,
+              minimumFractionDigits: 2,
+            })
+          "
+        />
+      </div>
+      <div class="row">
+        <TextViewerBottom
+          :title="'Opening Price'"
+          :krw="info.opening_price"
+          :usd="info.opening_price * usd"
+        />
+        <TextViewerBottom
+          :title="'Closing Price'"
+          :krw="info.prev_closing_price"
+          :usd="info.prev_closing_price * usd"
+        />
+        <TextViewerBottom
+          :title="'High Price'"
+          :krw="info.high_price"
+          :usd="info.high_price * usd"
+        />
+        <TextViewerBottom
+          :title="'Low Price'"
+          :krw="info.low_price"
+          :usd="info.low_price * usd"
+        />
+      </div>
     </div>
-    <div class="row">
-      <TextViewer :title="'Market Cap'" :krw="circulatingSupply*info.trade_price" :usd="circulatingSupply*info.trade_price*usd" :subTitle="'Circulating Supply'" :tooltip="'true'" />
-      <TextViewer :title="'Market Cap'" :krw="info.trade_price*50000000" :usd="50000000*info.trade_price*usd" :subTitle="'Total Supply'" :tooltip="''" />
-    </div>
-    <div class="row">
-      <TextViewerBottom :title="'Opening Price'" :krw="info.opening_price" :usd="info.opening_price*usd" />
-      <TextViewerBottom :title="'Closing Price'" :krw="info.prev_closing_price" :usd="info.prev_closing_price*usd" />
-      <TextViewerBottom :title="'High Price'" :krw="info.high_price" :usd="info.high_price*usd" />
-      <TextViewerBottom :title="'Low Price'" :krw="info.low_price" :usd="info.low_price*usd" />
+    <div v-else class="spinner-container">
+      <loading-spinner />
     </div>
   </div>
 </template>
 
 <script>
 import TextViewer from '@/components/TextViewer.vue';
+import TextViewerStaked from '@/components/TextViewerStaked.vue';
 import TextViewerBottom from '@/components/TextViewerBottom.vue';
 import TextViewerTon from '@/components/TextViewerTon.vue';
 import moment from 'moment';
+import { mapState, mapGetters } from 'vuex';
+import LoadingSpinner from '@/components/LoadingSpinner.vue';
 
 const axios = require('axios');
 export default {
@@ -31,103 +110,21 @@ export default {
     TextViewer,
     TextViewerBottom,
     TextViewerTon,
+    TextViewerStaked,
+    'loading-spinner': LoadingSpinner,
   },
-  props :{
-  },
-  data () {
-    return {
-      info: {
-        type: Object,
-      },
-      btc: {
-        type: Object,
-      },
-      usd: {
-        type: String,
-      },
-      circulatingSupply: 0,
-      currentTime: null,
-    };
-  },
-  created () {
-    const moments = require('moment-timezone');
-    const zoneName =  moments.tz.guess();
-    const timezone = moments.tz(zoneName).zoneAbbr();
-    this.currentTime = moment().format('DD/MM/YYYY hh:mm:ss ') + timezone;
-    setInterval(() => this.updateCurrentTime(), 1000);
-    this.getCurrencyInfo();
-    setInterval(() => {this.getCurrencyInfo();}, 30000 );
-    this.getUSDInfo();
-    setInterval(() => {this.getUSDInfo();}, 30000 );
-    this.getCirculatingSupply();
-    setInterval(() => {this.getCirculatingSupply();}, 1800000 );
-  },
-  mounted () {
-
-  },
-  methods: {
-    updateCurrentTime () {
-      const moments = require('moment-timezone');
-      const zoneName =  moments.tz.guess();
-      const timezone = moments.tz(zoneName).zoneAbbr();
-      this.currentTime = moment().format('DD/MM/YYYY hh:mm:ss ') + timezone;
-    },
-    getCurrencyInfo () {
-      axios
-        .get('https://api.upbit.com/v1/ticker?markets=KRW-TON')
-        .then(response => (
-          this.info = JSON.parse(JSON.stringify(response.data).replace(/]|[[]/g, ''))
-        ));
-    },
-    getUSDInfo () {
-      axios
-        .get('https://api.frankfurter.app/latest?from=KRW')
-        .then(response => (
-          this.usd = response.data.rates.USD
-        ));
-    },
-    getCirculatingSupply () {
-      const now = new Date() / 1000;
-      if (now >= 1597201200 && now < 1599768000){
-        this.circulatingSupply = 953200;
-      }
-      if (now >= 1599768000 && now < 1602360000){
-        this.circulatingSupply = 2756880;
-      }
-      if (now >= 1602360000 && now < 1604952000){
-        this.circulatingSupply = 4560560;
-      }
-      if (now >= 1604952000 && now < 1607544000){
-        this.circulatingSupply = 6364240;
-      }
-      if (now >= 1607544000 && now < 1610136000){
-        this.circulatingSupply = 8167920;
-      }
-      if (now >= 1610136000 && now < 1612728000){
-        this.circulatingSupply = 9971600;
-      }
-      if (now >= 1612728000 && now < 1615320000){
-        this.circulatingSupply = 12066947;
-      }
-      if (now >= 1615320000 && now < 1617912000){
-        this.circulatingSupply = 13914793;
-      }
-      if (now >= 1617912000 && now < 1620504000){
-        this.circulatingSupply = 15762640;
-      }
-      if (now >= 1620504000 && now < 1623096000){
-        this.circulatingSupply = 17610487;
-      }
-      if (now >= 1623096000 && now < 1625688000){
-        this.circulatingSupply = 19458333;
-      }
-      if (now >= 1625688000 && now < 1628280000){
-        this.circulatingSupply = 20000000;
-      }
-      if (now >= 1628280000 && now < 1630872000){
-        this.circulatingSupply = 20641667;
-      }
-    },
+  props: {},
+  computed: {
+    ...mapState([
+      'info',
+      'btc',
+      'circulatingSupply',
+      'usd',
+      'currentTime',
+      'totalStaked',
+      'totalSupply',
+      'loaded',
+    ]),
   },
 };
 </script>
@@ -148,27 +145,34 @@ export default {
 .row {
   display: flex;
   flex-direction: row;
-  justify-content:center;
+  justify-content: center;
 }
 
+.spinner-container {
+  height: 100%;
+  display: flex;
+    justify-content: center;
+    align-items: center;
+}
 @media screen and (max-width: 600px) {
   .dashbboard-container {
-  margin-top: 10px;
-  display: flex;
-  flex-flow: column wrap;
-  flex-direction: column;
-  position: relative;
-}
-.date {
-  font-weight: bold;
-  font-size: 40px;
-  padding-bottom: 20px;
-}
-.row {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-self: center;
-}
+    margin-top: 10px;
+    display: flex;
+    flex-flow: column wrap;
+    flex-direction: column;
+    position: relative;
+  }
+  .date {
+    font-weight: bold;
+    font-size: 40px;
+    padding-bottom: 20px;
+  }
+  .row {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-self: center;
+  }
+
 }
 </style>

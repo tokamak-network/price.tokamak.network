@@ -1,8 +1,8 @@
 <template>
   <div class="text-viewer-ton">
     <div class="title-ton">{{ title }}</div>
-    <div class="content-ton">{{ Math.trunc(KRWValue).toLocaleString('en-US') }} KRW</div>
-    <div class="content-ton">( {{ USDValue.toLocaleString(undefined, { maximumFractionDigits: 2, minimumFractionDigits: 2 }) }} USD )</div>
+    <div class="content-ton">{{ KRWValue }} TON</div>
+    <div class="content-ton">( {{ USDValue }} % of circulating supply )</div>
   </div>
 </template>
 

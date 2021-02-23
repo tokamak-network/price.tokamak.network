@@ -24,6 +24,12 @@ export default {
       info: null,
     };
   },
+  beforeCreate () {
+    this.$store.dispatch('setData');
+  },
+  created () {
+    this.$store.dispatch('updateData');
+  },
 };
 </script>
 
