@@ -13,8 +13,8 @@
       <div> )</div>
     </div>
     <div v-else class="sub-title"> ( {{ subTitle }} )</div>
-    <div class="content">{{ Math.trunc(ton).toLocaleString('en-US') }} TON </div>
-    <div class="content-ton">( {{ usd.toLocaleString(undefined, { maximumFractionDigits: 2, minimumFractionDigits: 2 }) }} USD )</div>
+     <div class="content-ton">{{ usd.toLocaleString(undefined, { maximumFractionDigits: 2, minimumFractionDigits: 2 }) }} USD</div>
+    <div class="content">( {{ Math.trunc(ton).toLocaleString('en-US') }} TON )</div>
   </div>
 </template>
 
