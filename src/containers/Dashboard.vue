@@ -3,7 +3,7 @@
     <div v-if="loaded" class="dashbboard-container">
       <div class="date">{{ currentTime }}</div>
       <div class="row">
-        <div class="text-viewer-market-cap" style="width:20%; margin-left:-60px">
+        <div class="text-viewer-ton-bold">
           <div class="title-ton">TON Price</div>
           <div class="content-ton">
             {{ Math.trunc(info.trade_price).toLocaleString("en-US") }} KRW
@@ -191,6 +191,15 @@ export default {
   height: 210px;
   padding-bottom: 20px;
 }
+.text-viewer-ton-bold {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  height: 210px;
+  padding-bottom: 20px;
+  width:20%;
+  margin-left:-60px
+}
 .title-ton {
   font-weight: bold;
   font-size: 35px;
@@ -205,6 +214,7 @@ export default {
   font-size: 25px;
   padding: 5px;
 }
+
 @media screen and (max-width: 600px) {
   .dashbboard-container {
     margin-top: 10px;
@@ -223,6 +233,15 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-self: center;
+  }
+  .text-viewer-market-cap {
+    height: 200px;
+    width: 100%;
+  }
+  .text-viewer-ton-bold {
+    height: 150px;
+    width: 100%;
+    margin-left: 0px
   }
 }
 </style>
