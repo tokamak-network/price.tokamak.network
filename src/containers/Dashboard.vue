@@ -3,33 +3,70 @@
     <div v-if="loaded" class="dashbboard-container">
       <div class="date">{{ currentTime }}</div>
       <div class="row">
-        <TextViewerTon
-          :title="'TON Price'"
-          :KRWValue="info.trade_price"
-          :USDValue="info.trade_price * usd"
-        />
-        <TextViewer
-          :title="'Market Cap'"
-          :krw="info.trade_price * totalSupply"
-          :usd="totalSupply * info.trade_price * usd"
-          :ton="totalSupply"
-          :subTitle="'Total Supply'"
-          :tooltip="''"
-        />
+        <div class="text-viewer-ton-bold">
+          <div class="title-ton">TON Price</div>
+          <div class="content-ton">
+            {{ Math.trunc(info.trade_price).toLocaleString("en-US") }} KRW
+          </div>
+          <div class="content-ton">
+            (
+            {{
+              (info.trade_price * usd).toLocaleString(undefined, {
+                maximumFractionDigits: 2,
+                minimumFractionDigits: 2,
+              })
+            }}
+            USD )
+          </div>
+        </div>
+        <div class="text-viewer-market-cap">
+          <div class="title-ton">Market Cap</div>
+          <div class="sub-title">
+            ( Total Tradable TON )
+            <div />
+          </div>
+          <div class="content-ton">
+            $
+            {{
+              (
+                (circulatingSupply - totalStaked) *
+                info.trade_price *
+                usd
+              ).toLocaleString(undefined, {
+                maximumFractionDigits: 2,
+                minimumFractionDigits: 2,
+              })
+            }}
+          </div>
+          <div class="content-ton">
+            {{
+              (circulatingSupply - totalStaked).toLocaleString(undefined, {
+                maximumFractionDigits: 2,
+                minimumFractionDigits: 2,
+              })
+            }}
+            TON
+          </div>
+          <div class="sub-title">
+            (
+            {{
+              (
+                ((circulatingSupply - totalStaked) / circulatingSupply) *
+                100
+              ).toLocaleString(undefined, {
+                maximumFractionDigits: 2,
+                minimumFractionDigits: 2,
+              })
+            }}
+            % of circulating supply )
+          </div>
+        </div>
+      </div>
+      <div class="row">
         <TextViewerTon
           :title="'Trading Volume'"
           :KRWValue="info.acc_trade_price_24h"
           :USDValue="info.acc_trade_price_24h * usd"
-        />
-      </div>
-      <div class="row">
-        <TextViewer
-          :title="'Market Cap'"
-          :krw="circulatingSupply * info.trade_price"
-          :usd="circulatingSupply * info.trade_price * usd"
-          :ton="circulatingSupply"
-          :subTitle="'Circulating Supply'"
-          :tooltip="'true'"
         />
         <TextViewerStaked
           :title="'Total Staked TON'"
@@ -40,29 +77,22 @@
             })
           "
           :USDValue="
-            ((totalStaked / circulatingSupply) * 100).toLocaleString(undefined, {
-              maximumFractionDigits: 2,
-              minimumFractionDigits: 2,
-            })
+            ((totalStaked / circulatingSupply) * 100).toLocaleString(
+              undefined,
+              {
+                maximumFractionDigits: 2,
+                minimumFractionDigits: 2,
+              }
+            )
           "
         />
-        <TextViewerStaked
-          :title="'Total Tradable TON'"
-          :KRWValue="
-            (circulatingSupply - totalStaked).toLocaleString(undefined, {
-              maximumFractionDigits: 2,
-              minimumFractionDigits: 2,
-            })
-          "
-          :USDValue="
-            (
-              ((circulatingSupply - totalStaked) / circulatingSupply) *
-              100
-            ).toLocaleString(undefined, {
-              maximumFractionDigits: 2,
-              minimumFractionDigits: 2,
-            })
-          "
+         <TextViewer
+          :title="'Market Cap'"
+          :krw="info.trade_price * totalSupply"
+          :usd="totalSupply * info.trade_price * usd"
+          :ton="totalSupply"
+          :subTitle="'Total Supply'"
+          :tooltip="''"
         />
       </div>
       <div class="row">
@@ -147,13 +177,44 @@ export default {
   flex-direction: row;
   justify-content: center;
 }
-
 .spinner-container {
   height: 100%;
   display: flex;
-    justify-content: center;
-    align-items: center;
+  justify-content: center;
+  align-items: center;
 }
+.text-viewer-market-cap {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  /* width: 30%; */
+  height: 210px;
+  padding-bottom: 20px;
+}
+.text-viewer-ton-bold {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  height: 210px;
+  padding-bottom: 20px;
+  width:20%;
+  margin-left:-60px
+}
+.title-ton {
+  font-weight: bold;
+  font-size: 35px;
+  padding: 5px;
+}
+.content-ton {
+  font-size: 25px;
+  padding: 5px;
+}
+
+.content {
+  font-size: 25px;
+  padding: 5px;
+}
+
 @media screen and (max-width: 600px) {
   .dashbboard-container {
     margin-top: 10px;
@@ -173,6 +234,14 @@ export default {
     justify-content: center;
     align-self: center;
   }
-
+  .text-viewer-market-cap {
+    height: 200px;
+    width: 100%;
+  }
+  .text-viewer-ton-bold {
+    height: 150px;
+    width: 100%;
+    margin-left: 0px
+  }
 }
 </style>
