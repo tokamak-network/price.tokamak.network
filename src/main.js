@@ -1,6 +1,12 @@
 import Vue from 'vue';
 import App from './App.vue';
 import VueGtag from 'vue-gtag';
+import { ApolloClient } from 'apollo-client';
+import { createHttpLink } from 'apollo-link-http';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import VueApollo from 'vue-apollo';
+
+Vue.use(VueApollo);
 
 Vue.use(VueGtag, {
   config: {
@@ -12,6 +18,22 @@ import router from './router';
 import store from './store';
 
 // Vue.config.productionTip = false;
+const httpLink = createHttpLink({
+  // You should use an absolute URL here
+  uri: 'https://api.thegraph.com/subgraphs/name/cd4761/uniswap-v3',
+});
+
+const cache = new InMemoryCache();
+
+// Create the apollo client
+const apolloClient = new ApolloClient({
+  link: httpLink,
+  cache,
+});
+
+const apolloProvider = new VueApollo({
+  defaultClient: apolloClient,
+});
 
 const isDev = process.env.NODE_ENV !== 'production';
 Vue.config.performance = isDev;
@@ -19,5 +41,6 @@ Vue.config.performance = isDev;
 new Vue({
   router,
   store,
+  apolloProvider,
   render: h => h(App),
 }).$mount('#app');

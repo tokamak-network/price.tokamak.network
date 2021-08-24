@@ -4,6 +4,7 @@ Vue.use(Vuex);
 const moments = require('moment-timezone');
 const axios = require('axios');
 import moment from 'moment';
+import { ethers } from 'ethers';
 
 export default new Vuex.Store({
   state: {
@@ -15,6 +16,8 @@ export default new Vuex.Store({
     currentTime: null,
     totalStaked: 0,
     totalSupply: 0,
+    totalStakedInPhase1: 0,
+    tosprice: 0,
     title: 'Tokamak Network Price Dashboard',
   },
   mutations: {
@@ -35,6 +38,12 @@ export default new Vuex.Store({
     },
     SET_CIRCULATINGSUPPLY: (state, circulatingSupply) => {
       state.circulatingSupply = circulatingSupply;
+    },
+    SET_TOSPRICE_USD: (state, tosprice) => {
+      state.tosprice = tosprice;
+    },
+    SET_TOTALSTAKED_IN_PHASE1: (state, totalStaked) => {
+      state.totalStakedInPhase1 = totalStaked;
     },
     SET_TOTALSTAKED: (state, totalStaked) => {
       state.totalStaked = totalStaked;
@@ -65,6 +74,8 @@ export default new Vuex.Store({
         context.dispatch('getCirculatingSupply'),
         context.dispatch('getTotalStaked'),
         context.dispatch('getTotalSupply'),
+        context.dispatch('getStakedData'),
+        context.dispatch('getCurrentTosPrice'),
       ]);
 
       context.dispatch('setLoaded');
@@ -82,6 +93,21 @@ export default new Vuex.Store({
       setInterval(() => context.dispatch('getCirculatingSupply'), 60000);
       setInterval(() => context.dispatch('getTotalStaked'), 60000);
       setInterval(() => context.dispatch('getTotalSupply'), 60000);
+      setInterval(() => context.dispatch('getCurrentTosPrice'), 60000);
+    },
+    async getPoolData (context) {
+
+    },
+    async getStakedData (context) {
+      await axios.get('https://api.tokamak.network/tonstarter/stakecontracts?chainId=1').then(response => {
+        const stakeList = response.data.datas;
+        let total = 0;
+
+        stakeList.map(data => {
+          total += Number(ethers.utils.formatUnits(data.totalStakedAmountString, 18));
+        });
+        context.commit('SET_TOTALSTAKED_IN_PHASE1', total);
+      });
     },
     async getCurrencyInfo (context) {
       await axios
@@ -101,6 +127,12 @@ export default new Vuex.Store({
       await axios
         .get('https://api.frankfurter.app/latest?from=KRW')
         .then((response) => context.commit('SET_USD', response.data.rates.USD));
+    },
+    async getCurrentTosPrice (context) {
+      await axios.get('https://price-api.tokamak.network/tosprice')
+        .then((response) => {
+          context.commit('SET_TOSPRICE_USD', response.data);
+        });
     },
     async getCirculatingSupply (context) {
       await axios

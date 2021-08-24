@@ -19,6 +19,22 @@
             USD )
           </div>
         </div>
+        <div class="text-viewer-ton-bold">
+          <div class="title-ton">TOS Price</div>
+          <div class="content-ton">
+            {{ Math.trunc(tosprice / usd).toLocaleString("en-US") }} KRW
+          </div>
+          <div class="content-ton">
+            (
+            {{
+              (tosprice).toLocaleString(undefined, {
+                maximumFractionDigits: 2,
+                minimumFractionDigits: 2,
+              })
+            }}
+            USD )
+          </div>
+        </div>
         <div class="text-viewer-market-cap">
           <div class="title-ton">Market Cap</div>
           <div class="sub-title">
@@ -86,12 +102,34 @@
             )
           "
         />
-         <TextViewer
+        <TextViewer
           :title="'Market Cap'"
           :krw="info.trade_price * totalSupply"
           :usd="totalSupply * info.trade_price * usd"
           :ton="totalSupply"
           :subTitle="'Total Supply'"
+          :tooltip="''"
+        />
+        <TextViewerStaked
+          :title="'TONStarter Staked TON'"
+          :KRWValue="totalStakedInPhase1.toLocaleString(undefined)"
+          :USDValue="
+            ((totalStakedInPhase1 / circulatingSupply) * 100).toLocaleString(
+              undefined,
+              {
+                maximumFractionDigits: 2,
+                minimumFractionDigits: 2,
+              }
+            )
+          "
+        />
+        <TextViewerTon
+          :title="'Uniswap TVL'"
+          :KRWValue="Number(tvl) / usd"
+          :USDValue="Number(tvl).toLocaleString(undefined, {
+            maximumFractionDigits: 2,
+            minimumFractionDigits: 2,
+          })"
           :tooltip="''"
         />
       </div>
@@ -143,7 +181,7 @@ export default {
     TextViewerStaked,
     'loading-spinner': LoadingSpinner,
   },
-  props: {},
+  props: ['tvl'],
   computed: {
     ...mapState([
       'info',
@@ -153,6 +191,8 @@ export default {
       'currentTime',
       'totalStaked',
       'totalSupply',
+      'tosprice',
+      'totalStakedInPhase1',
       'loaded',
     ]),
   },
