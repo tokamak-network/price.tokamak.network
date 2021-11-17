@@ -67,7 +67,7 @@
             (
             {{
               (
-                ((circulatingSupply - totalStaked) / circulatingSupply) *
+                ((circulatingSupply - totalStaked) / (circulatingSupply + totalStakedInPhase1)) *
                 100
               ).toLocaleString(undefined, {
                 maximumFractionDigits: 2,
@@ -93,7 +93,7 @@
             })
           "
           :USDValue="
-            ((totalStaked / circulatingSupply) * 100).toLocaleString(
+            ((totalStaked / (circulatingSupply + totalStakedInPhase1)) * 100).toLocaleString(
               undefined,
               {
                 maximumFractionDigits: 2,
@@ -114,7 +114,7 @@
           :title="'TONStarter Staked TON'"
           :KRWValue="totalStakedInPhase1.toLocaleString(undefined)"
           :USDValue="
-            ((totalStakedInPhase1 / circulatingSupply) * 100).toLocaleString(
+            ((totalStakedInPhase1 / (circulatingSupply + totalStakedInPhase1)) * 100).toLocaleString(
               undefined,
               {
                 maximumFractionDigits: 2,
