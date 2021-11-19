@@ -20,7 +20,7 @@ import store from './store';
 // Vue.config.productionTip = false;
 const httpLink = createHttpLink({
   // You should use an absolute URL here
-  uri: 'https://api.thegraph.com/subgraphs/name/cd4761/uniswap-v3',
+  uri: 'https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v3',
 });
 
 const cache = new InMemoryCache();
