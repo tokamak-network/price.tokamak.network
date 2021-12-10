@@ -17,16 +17,17 @@ export default {
 .text-viewer-bottom {
   display: flex;
   flex-direction: column;
+  margin-top: 20px;
   padding: 5px;
   width: 20%;
   height: 110px;
 }
 .title {
     font-weight: bold;
-    font-size: 20px;
+    font-size: 40px;
 }
 .content {
-    font-size: 15px;
+    font-size: 30px;
     padding: 5px;
 }
 

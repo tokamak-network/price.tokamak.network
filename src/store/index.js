@@ -13,6 +13,11 @@ export default new Vuex.Store({
     btc: {},
     usd: 0,
     circulatingSupply: 0,
+    circulationSupply: {},
+    currentTradableTON: 0,
+    tradableAfter2WeeksTo3Months: 0,
+    tradableAfter1year: 0,
+    tradableAfter3years: 0,
     currentTime: null,
     totalStaked: 0,
     totalSupply: 0,
@@ -51,6 +56,9 @@ export default new Vuex.Store({
     SET_TOTALSUPPLY: (state, totalSupply) => {
       state.totalSupply = totalSupply;
     },
+    SET_CIRCULATIONSUPPLY: (state, circulationSupply) => {
+      state.circulationSupply = circulationSupply;
+    },
     SET_USD: (state, usd) => {
       state.usd = usd;
     },
@@ -76,6 +84,7 @@ export default new Vuex.Store({
         context.dispatch('getTotalSupply'),
         context.dispatch('getStakedData'),
         context.dispatch('getCurrentTosPrice'),
+        context.dispatch('getCirculationSupply'),
       ]);
 
       context.dispatch('setLoaded');
@@ -94,6 +103,7 @@ export default new Vuex.Store({
       setInterval(() => context.dispatch('getTotalStaked'), 60000);
       setInterval(() => context.dispatch('getTotalSupply'), 60000);
       setInterval(() => context.dispatch('getCurrentTosPrice'), 60000);
+      setInterval(() => context.dispatch('getCirculationSupply'), 60000);
     },
     async getPoolData (context) {
 
@@ -127,6 +137,13 @@ export default new Vuex.Store({
       await axios
         .get('https://api.frankfurter.app/latest?from=KRW')
         .then((response) => context.commit('SET_USD', response.data.rates.USD));
+    },
+    async getCirculationSupply (context) {
+      await axios
+        .get('https://price-api.tokamak.network/circulationSupply')
+        .then((response) => {
+          context.commit('SET_CIRCULATIONSUPPLY', response.data);
+        });
     },
     async getCurrentTosPrice (context) {
       await axios.get('https://price-api.tokamak.network/tosprice')

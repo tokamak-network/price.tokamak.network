@@ -1,160 +1,19 @@
 <template>
   <div>
+    <div class="selector">
+      <div :class="{ 'selected': currentSelector === 0 }" @click="currentSelector = 0">
+        Price
+      </div>
+      <div :class="{ 'selected': currentSelector === 1 }"
+           style="margin-left: 35px; margin-right: 35px;"
+           @click="currentSelector = 1"
+      >
+        Supply
+      </div>
+    </div>
     <div v-if="loaded" class="dashbboard-container">
-      <div class="date">{{ currentTime }}</div>
-      <div class="row">
-        <div class="text-viewer-ton-bold">
-          <div class="title-ton">TON Price</div>
-          <div class="content-ton">
-            {{ Math.trunc(info.trade_price).toLocaleString("en-US") }} KRW
-          </div>
-          <div class="content-ton">
-            (
-            {{
-              (info.trade_price * usd).toLocaleString(undefined, {
-                maximumFractionDigits: 2,
-                minimumFractionDigits: 2,
-              })
-            }}
-            USD )
-          </div>
-        </div>
-        <div class="text-viewer-ton-bold">
-          <div class="title-ton">TOS Price</div>
-          <div class="content-ton">
-            {{ Math.trunc(tosprice / usd).toLocaleString("en-US") }} KRW
-          </div>
-          <div class="content-ton">
-            (
-            {{
-              (tosprice).toLocaleString(undefined, {
-                maximumFractionDigits: 2,
-                minimumFractionDigits: 2,
-              })
-            }}
-            USD )
-          </div>
-        </div>
-        <div class="text-viewer-market-cap">
-          <div class="title-ton">Market Cap</div>
-          <div class="sub-title">
-            ( Total Tradable TON )
-            <div />
-          </div>
-          <div class="content-ton">
-            $
-            {{
-              (
-                (circulatingSupply - totalStaked) *
-                info.trade_price *
-                usd
-              ).toLocaleString(undefined, {
-                maximumFractionDigits: 2,
-                minimumFractionDigits: 2,
-              })
-            }}
-          </div>
-          <div class="content-ton">
-            {{
-              (circulatingSupply - totalStaked).toLocaleString(undefined, {
-                maximumFractionDigits: 2,
-                minimumFractionDigits: 2,
-              })
-            }}
-            TON
-          </div>
-          <div class="sub-title">
-            (
-            {{
-              (
-                ((circulatingSupply - totalStaked) / (circulatingSupply + totalStakedInPhase1)) *
-                100
-              ).toLocaleString(undefined, {
-                maximumFractionDigits: 2,
-                minimumFractionDigits: 2,
-              })
-            }}
-            % of circulating supply )
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <TextViewerTon
-          :title="'Trading Volume'"
-          :KRWValue="info.acc_trade_price_24h"
-          :USDValue="info.acc_trade_price_24h * usd"
-        />
-        <TextViewerStaked
-          :title="'Total Staked TON'"
-          :KRWValue="
-            totalStaked.toLocaleString(undefined, {
-              maximumFractionDigits: 2,
-              minimumFractionDigits: 2,
-            })
-          "
-          :USDValue="
-            ((totalStaked / (circulatingSupply + totalStakedInPhase1)) * 100).toLocaleString(
-              undefined,
-              {
-                maximumFractionDigits: 2,
-                minimumFractionDigits: 2,
-              }
-            )
-          "
-        />
-        <TextViewer
-          :title="'Market Cap'"
-          :krw="info.trade_price * totalSupply"
-          :usd="totalSupply * info.trade_price * usd"
-          :ton="totalSupply"
-          :subTitle="'Total Supply'"
-          :tooltip="''"
-        />
-        <TextViewerStaked
-          :title="'TONStarter Staked TON'"
-          :KRWValue="totalStakedInPhase1.toLocaleString(undefined)"
-          :USDValue="
-            ((totalStakedInPhase1 / (circulatingSupply + totalStakedInPhase1)) * 100).toLocaleString(
-              undefined,
-              {
-                maximumFractionDigits: 2,
-                minimumFractionDigits: 2,
-              }
-            )
-          "
-        />
-        <TextViewerTon
-          :title="'Uniswap TVL'"
-          :KRWValue="Number(tvl) / usd"
-          :USDValue="Number(tvl).toLocaleString(undefined, {
-            maximumFractionDigits: 2,
-            minimumFractionDigits: 2,
-          })"
-          :tooltip="''"
-        />
-      </div>
-      <div class="row">
-        <TextViewerBottom
-          :title="'Opening Price'"
-          :krw="info.opening_price"
-          :usd="info.opening_price * usd"
-        />
-        <TextViewerBottom
-          :title="'Closing Price'"
-          :krw="info.prev_closing_price"
-          :usd="info.prev_closing_price * usd"
-        />
-        <TextViewerBottom
-          :title="'High Price'"
-          :krw="info.high_price"
-          :usd="info.high_price * usd"
-        />
-        <TextViewerBottom
-          :title="'Low Price'"
-          :krw="info.low_price"
-          :usd="info.low_price * usd"
-        />
-      </div>
+      <PriceContainer v-if="currentSelector === 0" />
+      <SupplyContainer v-if="currentSelector === 1" :tvl="tvl" />
     </div>
     <div v-else class="spinner-container">
       <loading-spinner />
@@ -167,6 +26,8 @@ import TextViewer from '@/components/TextViewer.vue';
 import TextViewerStaked from '@/components/TextViewerStaked.vue';
 import TextViewerBottom from '@/components/TextViewerBottom.vue';
 import TextViewerTon from '@/components/TextViewerTon.vue';
+import SupplyContainer from './SupplyContainer.vue';
+import PriceContainer from './PriceContainer.vue';
 import moment from 'moment';
 import { mapState, mapGetters } from 'vuex';
 import LoadingSpinner from '@/components/LoadingSpinner.vue';
@@ -175,13 +36,20 @@ const axios = require('axios');
 export default {
   name: 'Dashboard',
   components: {
-    TextViewer,
-    TextViewerBottom,
-    TextViewerTon,
-    TextViewerStaked,
+    SupplyContainer,
+    PriceContainer,
+    // TextViewer,
+    // TextViewerBottom,
+    // TextViewerTon,
+    // TextViewerStaked,
     'loading-spinner': LoadingSpinner,
   },
   props: ['tvl'],
+  data () {
+    return {
+      currentSelector: 0,
+    };
+  },
   computed: {
     ...mapState([
       'info',
@@ -253,6 +121,28 @@ export default {
 .content {
   font-size: 25px;
   padding: 5px;
+}
+.selector {
+  display: flex;
+  margin-top: 10px;
+  margin-left: 200px;
+}
+.selector .selected {
+  color: #2a72e5;
+  font-weight: 500;
+}
+.selector > div {
+  font-family: Roboto;
+  font-size: 20px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: #86929d;
+}
+.selector > div:hover {
+  cursor: pointer;
 }
 
 @media screen and (max-width: 600px) {
