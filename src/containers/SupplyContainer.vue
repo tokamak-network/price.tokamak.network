@@ -290,13 +290,13 @@ export default {
 .date {
   font-weight: bold;
   font-size: 50px;
-  padding-bottom: 20px;
+  margin: 20px 0;
 }
 .row {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  margin: 50px 0;
+  margin-bottom: 50px;
 }
 .spinner-container {
   height: 100%;
@@ -323,7 +323,7 @@ export default {
 }
 .title-ton {
   font-weight: bold;
-  font-size: 50px;
+  font-size: 45px;
   /* padding: 5px; */
   margin: 0 30px;
   display: flex;
@@ -370,12 +370,12 @@ export default {
   visibility: visible;
 }
 .content-ton {
-  font-size: 35px;
+  font-size: 25px;
   padding: 5px;
 }
 
 .content {
-  font-size: 25px;
+  font-size: 20px;
   padding: 5px;
 }
 

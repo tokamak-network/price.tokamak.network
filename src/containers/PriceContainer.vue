@@ -105,20 +105,22 @@ export default {
 <style scoped>
 .dashbboard-container {
   min-width: 100vw;
-  margin-top: 10px;
+  /* margin-top: 10px; */
   display: flex;
   flex-direction: column;
+  margin-bottom: 10px;
   justify-content: center;
 }
 .date {
   font-weight: bold;
-  font-size: 50px;
-  padding-bottom: 20px;
+  font-size: 45px;
+  margin: 20px 0;
 }
 .row {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  margin-bottom: 10px;
 }
 .spinner-container {
   height: 100%;
@@ -129,33 +131,33 @@ export default {
 .text-viewer-market-cap {
   display: flex;
   flex-direction: column;
-  padding: 5px;
+  /* padding: 5px; */
   /* width: 30%; */
-  height: 210px;
+  /* height: 210px; */
   padding-bottom: 20px;
 }
 .text-viewer-ton-bold {
   display: flex;
   flex-direction: column;
   padding: 5px;
-  margin-top: 30px;
-  height: 300px;
-  padding-bottom: 20px;
-  width:20%;
+  /* margin-top: 25px; */
+  /* height: 300px; */
+  margin-bottom: 15px;
+  width:35%;
   /* margin-left:-60px */
 }
 .title-ton {
   font-weight: bold;
-  font-size: 60px;
+  font-size: 45px;
   padding: 5px;
 }
 .content-ton {
-  font-size: 40px;
+  font-size: 30px;
   padding: 5px;
 }
 
 .content {
-  font-size: 25px;
+  font-size: 20px;
   padding: 5px;
 }
 
