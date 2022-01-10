@@ -5,6 +5,37 @@
       <div class="row">
         <div class="text-viewer-market-cap">
           <div class="title-ton">
+            C0
+            <div v-if="tooltip !== ''" class="tooltip">
+              <img src="@/assets/images/instruction.png" alt="" width="20" height="20">
+              <span class="tooltiptext" :style="`margin-left: 10px; margin-top: 5px; width: 150px;`">Amount that can be traded.</span>
+            </div>
+          </div>
+          <div class="content-ton">
+            {{
+              (circulationSupply.C0).toLocaleString(undefined, {
+                maximumFractionDigits: 2,
+                minimumFractionDigits: 2,
+              })
+            }}
+            TON
+          </div>
+          <div class="content-ton">
+            $
+            {{
+              (
+                (circulationSupply.C0) *
+                info.trade_price *
+                usd
+              ).toLocaleString(undefined, {
+                maximumFractionDigits: 2,
+                minimumFractionDigits: 2,
+              })
+            }}
+          </div>
+        </div>
+        <div class="text-viewer-market-cap">
+          <div class="title-ton">
             C1
             <div v-if="tooltip !== ''" class="tooltip">
               <img src="@/assets/images/instruction.png" alt="" width="20" height="20">

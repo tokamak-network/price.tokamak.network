@@ -142,6 +142,7 @@ export default new Vuex.Store({
       await axios
         .get('https://price-api.tokamak.network/circulationSupply')
         .then((response) => {
+          console.log(response);
           context.commit('SET_CIRCULATIONSUPPLY', response.data);
         });
     },
