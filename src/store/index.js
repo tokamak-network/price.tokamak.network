@@ -109,7 +109,7 @@ export default new Vuex.Store({
 
     },
     async getStakedData (context) {
-      await axios.get('https://api.tokamak.network/tonstarter/stakecontracts?chainId=1').then(response => {
+      await axios.get('https://tonstarterapi.tokamak.network/v1/stakecontracts?chainId=1').then(response => {
         const stakeList = response.data.datas;
         let total = 0;
 
