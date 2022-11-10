@@ -27,10 +27,7 @@
           <div class="content-ton">
             (
             {{
-              (tosprice).toLocaleString(undefined, {
-                maximumFractionDigits: 2,
-                minimumFractionDigits: 2,
-              })
+              Math.floor((tosprice).toLocaleString() * 100) / 100
             }}
             USD )
           </div>
