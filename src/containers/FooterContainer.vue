@@ -101,7 +101,7 @@
           >
         </a>
         <a
-          href="https://github.com/Onther-Tech/"
+          href="https://github.com/tokamak-network/price.tokamak.network"
           target="_blank"
           rel="noopener noreferrer"
         >
