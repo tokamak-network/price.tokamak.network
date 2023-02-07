@@ -38,7 +38,6 @@ export default {
   components: {
     SupplyContainer,
     PriceContainer,
-    // TextViewer,
     // TextViewerBottom,
     // TextViewerTon,
     // TextViewerStaked,
