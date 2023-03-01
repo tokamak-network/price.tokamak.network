@@ -145,6 +145,7 @@ export default new Vuex.Store({
           context.commit('SET_CIRCULATIONSUPPLY', response.data);
         });
     },
+
     async getCurrentTosPrice (context) {
       await axios.get('https://price-api.tokamak.network/tosprice')
         .then((response) => {
