@@ -113,9 +113,7 @@ export default new Vuex.Store({
         const stakeList = response.data.datas;
         let total = 0;
 
-        stakeList.map(data => {
-          total += Number(ethers.utils.formatUnits(data.totalStakedAmountString, 18));
-        });
+        total = Number(ethers.utils.formatUnits(stakeList[0].totalStakedAmountString, 18));
         context.commit('SET_TOTALSTAKED_IN_PHASE1', total);
       });
     },
