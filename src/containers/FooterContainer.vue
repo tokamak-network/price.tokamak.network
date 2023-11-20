@@ -71,7 +71,7 @@
         >
           <img
             class="footer-channel-image filter-grey"
-            src="@/assets/images/community/twitter.png"
+            src="@/assets/images/community/x.png"
             width="28x;"
             height="28px;"
           >
